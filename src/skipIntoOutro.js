@@ -15,12 +15,11 @@ class SkipIntoOutro extends BasePlugin {
    * The default configuration of the plugin.
    * @type {Object}
    * @static
-   * @memberof Share
+   * @memberof SkipIntoOutro
    */
   static defaultConfig: ShareConfig = {
-    timeout: 50000
+    timeout: 5000
   };
-
   getUIComponents() {
     return [
       {
@@ -29,7 +28,8 @@ class SkipIntoOutro extends BasePlugin {
         area: 'InteractiveArea',
         get: SkipIntroOutroComponent,
         props: {
-          config: this.config
+          config: this.config,
+          eventManager: this.eventManager
         }
       }
     ];
@@ -46,8 +46,13 @@ class SkipIntoOutro extends BasePlugin {
     return true;
   }
 
+  loadMedia(): void {
+    console.log('444', this.player.sources.metadata);
+  }
+
   constructor(name: string, player: KalturaPlayer, config: Object) {
     super(name, player, config);
+    console.log('444 3', this.player.sources.metadata);
   }
 }
 
