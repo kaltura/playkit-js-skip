@@ -1,0 +1,14 @@
+{
+  "fi": {
+    "controls": {
+      "share": "Jaa"
+    },
+    "share": {
+      "title": "Jaa",
+      "embed_options": "Upotusvaihtoehdot",
+      "start_video_at": "Aloita video",
+      "email": "Jaa sähköpostitse",
+      "embed": "Hanki upotuskoodi"
+    }
+  }
+}

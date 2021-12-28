@@ -1,0 +1,14 @@
+{
+  "ja": {
+    "controls": {
+      "share": "共有する"
+    },
+    "share": {
+      "title": "共有する",
+      "embed_options": "オプションの埋め込み",
+      "start_video_at": "ビデオ再生開始地点",
+      "email": "メールで共有する",
+      "embed": "埋め込みコードを取得する"
+    }
+  }
+}

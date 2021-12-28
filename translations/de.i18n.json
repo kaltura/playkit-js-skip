@@ -1,0 +1,17 @@
+{
+  "de": {
+    "controls": {
+      "share": "Teilen"
+    },
+    "share": {
+      "title": "Teilen",
+      "embed_options": "Einbettungsoptionen",
+      "start_video_at": "Startzeitpunkt Video",
+      "email": "Per E-Mail teilen",
+      "embed": "Einbettungscode generieren",
+      "share-on-facebook": "Auf Facebook teilen",
+      "share-on-twitter": "Auf Twitter teilen",
+      "share-on-linkedin": "Auf Linkedin teilen"
+    }
+  }
+}

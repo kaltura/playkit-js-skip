@@ -1,0 +1,14 @@
+{
+  "zh_tw": {
+    "controls": {
+      "share": "分享"
+    },
+    "share": {
+      "title": "分享",
+      "embed_options": "内嵌選項",
+      "start_video_at": "影片開始時間",
+      "email": "以電子郵件分享",
+      "embed": "獲得嵌入代碼"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "fr_ca": {
+    "controls": {
+      "share": "Partager"
+    },
+    "share": {
+      "title": "Partager",
+      "embed_options": "Options intégrées",
+      "start_video_at": "Commencer la vidéo à",
+      "email": "Partager par courriel",
+      "embed": "Obtenir le code intégré"
+    }
+  }
+}
