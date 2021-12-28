@@ -36,11 +36,11 @@ class SkipIntroOutro extends Component {
     const {player, eventManager} = this.props;
     // 1) - prevent listening, 2) - duration unavailable
     eventManager.listen(player, player.Event.FIRST_PLAY, () => {
-      this._extractMediaMetadata();
+      this._init();
     });
   }
 
-  _extractMediaMetadata = (): void => {
+  _init = (): void => {
     const {player, eventManager} = this.props;
     const {intro, outro} = this.props.player.sources.metadata;
     this._setIntroData(intro);
