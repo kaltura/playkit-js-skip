@@ -1,6 +1,6 @@
 // @flow
 import {registerPlugin} from 'kaltura-player-js';
-import {SkipIntoOutro as Plugin, pluginName} from './skip-into-outro';
+import {SkipInrtoOutro as Plugin, pluginName} from './skip-inrto-outro';
 import {SkipIntroOutro} from './components/skip-inro-outro/skip-intro-outro';
 declare var __VERSION__: string;
 declare var __NAME__: string;
