@@ -40,7 +40,7 @@ class SkipIntoOutro extends BasePlugin {
   }
 
   /**
-   * Whether the Share plugin is valid.
+   * Whether the Skip plugin is valid.
    * @static
    * @override
    * @public
