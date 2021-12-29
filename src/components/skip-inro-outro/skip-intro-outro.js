@@ -100,7 +100,7 @@ class SkipIntroOutro extends Component {
     return this.setState({currentMode: Mode.OFF});
   }
 
-  _skip = (): void => {
+  _seek = (): void => {
     this.setState({currentMode: Mode.OFF});
     const seekTo = this.state.currentMode === Mode.INTRO ? this.introData : this.outroData.endTime;
     this.props.player.currentTime = seekTo;
@@ -122,7 +122,7 @@ class SkipIntroOutro extends Component {
         tabIndex="0"
         aria-label={this.state.currentMode === Mode.INTRO ? this.props.skipIntroTxt : this.props.watchNextTxt}
         className={skipStyle.btnSkip}
-        onClick={this._skip}>
+        onClick={this._seek}>
         {skipTxt}
       </div>
     );

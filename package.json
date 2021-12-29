@@ -1,11 +1,11 @@
 {
-  "name": "@playkit-js/skip-intro-outro",
+  "name": "@playkit-js/skip",
   "version": "1.1.2",
   "keywords": [
     "kaltura",
     "player",
     "playkit-js",
-    "playkit-js-skip-intro-outro",
+    "skip",
     "html5 player"
   ],
   "homepage": "https://github.com/kaltura/playkit-js-skip-intro-outro",
@@ -14,7 +14,7 @@
   },
   "repository": "https://github.com/kalturaplaykit-js-skip-intro-outro",
   "license": "AGPL-3.0",
-  "main": "dist/playkit-skip-intro-outro.js",
+  "main": "dist/playkit-skip.js",
   "scripts": {
     "prebuild": "npm run clean",
     "build": "webpack --mode production",
