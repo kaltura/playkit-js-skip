@@ -2,7 +2,7 @@
 import {KalturaPlayer, BasePlugin} from 'kaltura-player-js';
 import {SkipIntroOutro as SkipIntroOutroComponent} from './components/skip-inro-outro/skip-intro-outro';
 
-const pluginName: string = 'skipIntoOutro';
+const pluginName: string = 'skipIntroOutro';
 /**
  * The Skip plugin.
  * @class SkipIntoOutro
