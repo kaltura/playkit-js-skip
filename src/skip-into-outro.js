@@ -4,7 +4,7 @@ import {SkipIntroOutro as SkipIntroOutroComponent} from './components/skip-inro-
 
 const pluginName: string = 'skipIntoOutro';
 /**
- * The Share plugin.
+ * The Skip plugin.
  * @class SkipIntoOutro
  * @param {string} name - The plugin name.
  * @param {Object} config - The plugin config.
