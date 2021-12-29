@@ -5,12 +5,12 @@ import {SkipIntroOutro as SkipIntroOutroComponent} from './components/skip-inro-
 const pluginName: string = 'skipIntroOutro';
 /**
  * The Skip plugin.
- * @class SkipInrtoOutro
+ * @class SkipIntroOutro
  * @param {string} name - The plugin name.
  * @param {Object} config - The plugin config.
  * @extends BasePlugin
  */
-class SkipInrtoOutro extends BasePlugin {
+class SkipIntroOutro extends BasePlugin {
   /**
    * The default configuration of the plugin.
    * @type {Object}
@@ -51,4 +51,4 @@ class SkipInrtoOutro extends BasePlugin {
   }
 }
 
-export {SkipInrtoOutro, pluginName};
+export {SkipIntroOutro, pluginName};
