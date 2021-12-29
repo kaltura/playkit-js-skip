@@ -11,7 +11,7 @@ const {withText} = preacti18n;
 const {withLogger, withPlayer} = Components;
 
 const Mode = {
-  INTRO: 'into',
+  INTRO: 'intro',
   OUTRO: 'outro',
   OFF: 'off'
 };
