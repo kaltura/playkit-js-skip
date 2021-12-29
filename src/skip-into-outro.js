@@ -44,7 +44,7 @@ class SkipIntoOutro extends BasePlugin {
    * @static
    * @override
    * @public
-   * @memberof Share
+   * @memberof SkipIntoOutro
    */
   static isValid() {
     return true;
