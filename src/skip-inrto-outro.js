@@ -21,7 +21,7 @@ class SkipIntroOutro extends BasePlugin {
     timeout: 5
   };
 
-  constructor(name: string, player: KalturaPlayer, config: Object) {
+  constructor(name: string, player: KalturaPlayer, config: SkipConfig) {
     super(name, player, config);
   }
   getUIComponents() {
