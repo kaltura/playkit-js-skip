@@ -43,17 +43,17 @@ class SkipIntroOutro extends Component {
     const {player, eventManager} = this.props;
     // 1) - prevent listening, 2) - duration unavailable
     eventManager.listen(player, player.Event.FIRST_PLAY, () => {
-      this._init();
+      this._setIntroOutroData();
     });
   }
 
-  _init = (): void => {
+  _setIntroOutroData = (): void => {
     const {player, eventManager} = this.props;
     const {intro, outro} = this.props.player.sources.metadata;
     this._setIntroData(intro);
     this._setOutroData(outro);
     if (this.introData || this.outroData) {
-      eventManager.listen(player, player.Event.TIME_UPDATE, () => this._updateVisibilityState());
+      eventManager.listen(player, player.Event.TIME_UPDATE, () => this._updateMode());
     }
   };
 
@@ -61,33 +61,44 @@ class SkipIntroOutro extends Component {
     if (typeof intro?.startTime === 'number' && typeof intro?.endTime === 'number') {
       const duration: number = intro.endTime - intro.startTime;
       const timeout: number = Math.min(this.props.config.timeout, duration);
-      this.introData = {...intro, timeout};
+      this.introData = {...intro, timeout, mode: Mode.INTRO};
     }
   };
 
   _setOutroData = outro => {
     if (typeof outro?.startTime === 'number') {
-      if (typeof outro?.endTime !== 'number') {
+      if (typeof outro?.endTime !== 'number' || outro?.endTime === -1) {
         outro.endTime = this.props.player.duration;
       }
       const duration: number = outro.endTime - outro.startTime;
       const timeout: number = Math.min(this.props.config.timeout, duration);
-      this.outroData = {...outro, timeout};
+      this.outroData = {...outro, timeout, mode: Mode.OUTRO};
     }
   };
 
-  _updateVisibilityState = (): void => {
-    const {player} = this.props;
+  _updateMode = (): void => {
     if (this.state.currentMode === Mode.OFF) {
-      if (player.currentTime >= this.introData.startTime && player.currentTime < this.introData.startTime + this.introData.timeout) {
-        this.setState({currentMode: Mode.INTRO});
-        setTimeout(() => this.setState({currentMode: Mode.OFF}), this.introData.timeout * 1000);
-      } else if (player.currentTime >= this.outroData.startTime && player.currentTime < this.outroData.startTime + this.outroData.timeout) {
-        this.setState({currentMode: Mode.OUTRO});
-        setTimeout(() => this.setState({currentMode: Mode.OFF}), this.outroData.timeout * 1000);
+      if (this._isOverlapping(this.introData)) {
+        this._turnOn(Mode.INTRO, this.introData.timeout);
+      } else if (this._isOverlapping(this.outroData)) {
+        this._turnOn(Mode.OUTRO, this.outroData.timeout);
       }
     }
   };
+
+  _isOverlapping(skipData: SkipData) {
+    const {player} = this.props;
+    return player.currentTime >= skipData.startTime && player.currentTime < skipData.startTime + skipData.timeout;
+  }
+
+  _turnOn(mode: string, timeout: number) {
+    this.setState({currentMode: mode});
+    setTimeout(() => this._turnOff(), timeout * 1000);
+  }
+
+  _turnOff() {
+    return this.setState({currentMode: Mode.OFF});
+  }
 
   _skip = (): void => {
     this.setState({currentMode: Mode.OFF});
