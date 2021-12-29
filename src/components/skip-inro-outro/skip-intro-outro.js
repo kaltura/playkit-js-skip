@@ -4,32 +4,39 @@
  * @ignore
  */
 import {ui} from 'kaltura-player-js';
+import skipStyle from './skip-intro-outro.scss';
 const {preact, preacti18n, Components} = ui;
 const {h, Component} = preact;
 const {withText} = preacti18n;
 const {withLogger, withPlayer} = Components;
 
-import skipStyle from './skip.scss';
+const Mode = {
+  INTRO: 'into',
+  OUTRO: 'outro',
+  OFF: 'off'
+};
 
-const COMPONENT_NAME = 'Share';
-// eslint-disable-next-line valid-jsdoc
+const COMPONENT_NAME = 'SkipIntroOutro';
 /**
- * Share component
+ * SkipIntroOutro component
  *
- * @class Share
- * @example <Share />
+ * @class SkipIntroOutro
  * @extends {Component}
  */
+
 @withPlayer
 @withLogger(COMPONENT_NAME)
-@withText({shareTxt: 'controls.share'})
+@withText({
+  skipIntroTxt: 'skip.skipIntro',
+  watchNextTxt: 'skip.watchNext'
+})
 class SkipIntroOutro extends Component {
-  introData;
-  outroData;
-  constructor(props) {
+  introData: SkipData;
+  outroData: SkipData;
+  constructor(props: any) {
     super(props);
     this.state = {
-      skipMode: 'off'
+      currentMode: Mode.OFF
     };
   }
   componentDidMount() {
@@ -52,8 +59,8 @@ class SkipIntroOutro extends Component {
 
   _setIntroData = intro => {
     if (typeof intro?.startTime === 'number' && typeof intro?.endTime === 'number') {
-      const duration = intro.endTime - intro.startTime;
-      const timeout = Math.min(this.props.config.timeout, duration * 1000);
+      const duration: number = intro.endTime - intro.startTime;
+      const timeout: number = Math.min(this.props.config.timeout, duration);
       this.introData = {...intro, timeout};
     }
   };
@@ -63,29 +70,28 @@ class SkipIntroOutro extends Component {
       if (typeof outro?.endTime !== 'number') {
         outro.endTime = this.props.player.duration;
       }
-      const duration = outro.endTime - outro.startTime;
-      const timeout = Math.min(this.props.config.timeout, duration * 1000);
+      const duration: number = outro.endTime - outro.startTime;
+      const timeout: number = Math.min(this.props.config.timeout, duration);
       this.outroData = {...outro, timeout};
     }
   };
 
   _updateVisibilityState = (): void => {
-    // Can be generic by object iteration
     const {player} = this.props;
-    if (this.state.skipMode === 'off') {
-      if (player.currentTime >= this.introData.startTime && player.currentTime < this.introData.startTime + this.introData.timeout / 1000) {
-        this.setState({skipMode: 'intro'});
-        setTimeout(() => this.setState({skipMode: 'off'}), this.introData.timeout);
-      } else if (player.currentTime >= this.outroData.startTime && player.currentTime < this.outroData.startTime + this.outroData.timeout / 1000) {
-        this.setState({skipMode: 'outro'});
-        setTimeout(() => this.setState({skipMode: 'off'}), this.outroData.timeout);
+    if (this.state.currentMode === Mode.OFF) {
+      if (player.currentTime >= this.introData.startTime && player.currentTime < this.introData.startTime + this.introData.timeout) {
+        this.setState({currentMode: Mode.INTRO});
+        setTimeout(() => this.setState({currentMode: Mode.OFF}), this.introData.timeout * 1000);
+      } else if (player.currentTime >= this.outroData.startTime && player.currentTime < this.outroData.startTime + this.outroData.timeout) {
+        this.setState({currentMode: Mode.OUTRO});
+        setTimeout(() => this.setState({currentMode: Mode.OFF}), this.outroData.timeout * 1000);
       }
     }
   };
 
   _skip = (): void => {
-    this.setState({skipMode: 'off'});
-    const seekTo = this.state.skipMode === 'intro' ? this.introData.endTime : this.outroData.endTime;
+    this.setState({currentMode: Mode.OFF});
+    const seekTo = this.state.currentMode === Mode.INTRO ? this.introData : this.outroData.endTime;
     this.props.player.currentTime = seekTo;
   };
 
@@ -96,16 +102,17 @@ class SkipIntroOutro extends Component {
    * @memberof SkipIntroOutro
    */
   render(): React$Element<any> | void {
-    if (this.state.skipMode === 'off') {
+    if (this.state.currentMode === Mode.OFF) {
       return undefined;
     }
+    const skipTxt = this.state.currentMode === Mode.INTRO ? this.props.skipIntroTxt : this.props.watchNextTxt;
     return (
       <div
         tabIndex="0"
-        // aria-label={this.props.isInFullscreen ? this.props.fullscreenExitText : this.props.fullscreenText}
+        aria-label={this.state.currentMode === Mode.INTRO ? this.props.skipIntroTxt : this.props.watchNextTxt}
         className={skipStyle.btnSkip}
         onClick={this._skip}>
-        Skip Intro
+        {skipTxt}
       </div>
     );
   }

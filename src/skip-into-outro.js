@@ -1,6 +1,6 @@
 // @flow
 import {KalturaPlayer, BasePlugin} from 'kaltura-player-js';
-import {SkipIntroOutro as SkipIntroOutroComponent} from './components/skipInroOutro/skipIntroOutro';
+import {SkipIntroOutro as SkipIntroOutroComponent} from './components/skip-inro-outro/skip-intro-outro';
 
 const pluginName: string = 'skipIntoOutro';
 /**
@@ -17,13 +17,17 @@ class SkipIntoOutro extends BasePlugin {
    * @static
    * @memberof SkipIntoOutro
    */
-  static defaultConfig: ShareConfig = {
-    timeout: 5000
+  static defaultConfig: SkipConfig = {
+    timeout: 5
   };
+
+  constructor(name: string, player: KalturaPlayer, config: Object) {
+    super(name, player, config);
+  }
   getUIComponents() {
     return [
       {
-        label: 'shareButtonComponent',
+        label: 'SkipIntroOutroComponent',
         presets: ['Playback'],
         area: 'InteractiveArea',
         get: SkipIntroOutroComponent,
@@ -44,15 +48,6 @@ class SkipIntoOutro extends BasePlugin {
    */
   static isValid() {
     return true;
-  }
-
-  loadMedia(): void {
-    console.log('444', this.player.sources.metadata);
-  }
-
-  constructor(name: string, player: KalturaPlayer, config: Object) {
-    super(name, player, config);
-    console.log('444 3', this.player.sources.metadata);
   }
 }
 

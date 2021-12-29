@@ -1,4 +1,4 @@
-describe('Share plugin', () => {
+describe('Skip plugin', () => {
   it('should return true', () => {
     return true;
   });
