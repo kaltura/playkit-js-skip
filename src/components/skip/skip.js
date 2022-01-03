@@ -71,7 +71,9 @@ class Skip extends Component {
       const duration: number = intro.endTime - intro.startTime;
       const timeout: number = Math.min(this.props.config.timeout, duration);
       this.intro = {...intro, timeout, mode: Mode.INTRO};
-    } // TODO else - throw an error/warn
+    } else {
+      this.props.logger.warn('the intro metadata values must be set and type of number', intro);
+    }
   };
 
   _setOutroData = outro => {
@@ -82,7 +84,9 @@ class Skip extends Component {
       const duration: number = outro.endTime - outro.startTime;
       const timeout: number = Math.min(this.props.config.timeout, duration);
       this.outro = {...outro, timeout, mode: Mode.OUTRO};
-    } // TODO else - throw an error/warn
+    } else {
+      this.props.logger.warn('the outro startTime must be set and type of number', outro);
+    }
   };
 
   _updateMode = (): void => {
@@ -101,13 +105,14 @@ class Skip extends Component {
   }
 
   _show(mode: string, timeout: number) {
-    // TODO logger
+    this.props.logger.log(`enter ${mode} skip point`);
     this.setState({currentMode: mode});
     setTimeout(() => this._hide(), timeout * 1000);
   }
 
   _hide() {
-    return this.setState({currentMode: Mode.OFF});
+    this.props.logger.log(`exit ${this.state.mode} skip point`);
+    this.setState({currentMode: Mode.OFF});
   }
 
   _seek = (): void => {
