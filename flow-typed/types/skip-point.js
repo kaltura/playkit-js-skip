@@ -1,4 +1,4 @@
 // @flow
-declare type SkipPoint = SkipMetadata & {
+declare type SkipPoint = IntroOutroTime & {
   timeout: number
 };

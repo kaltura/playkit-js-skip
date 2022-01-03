@@ -4,8 +4,13 @@
  * @ignore
  */
 import {ui} from 'kaltura-player-js';
-import skipStyle from './skip-intro-outro.scss';
-const {preact, preacti18n, Components} = ui;
+import skipStyle from './skip.scss';
+const {preact, Components, Event, Utils, redux, Reducers, preacti18n} = ui;
+const {withEventManager} = Event;
+const {bindActions} = Utils;
+const {shell} = Reducers;
+const {actions} = shell;
+const {connect} = redux;
 const {h, Component} = preact;
 const {withText} = preacti18n;
 const {withLogger, withPlayer} = Components;
@@ -16,44 +21,49 @@ const Mode = {
   OFF: 'off'
 };
 
+const mapStateToProps = state => ({
+  prePlayback: state.engine.prePlayback,
+  currentTime: state.engine.currentTime
+});
+
 const COMPONENT_NAME = 'SkipIntroOutro';
+// eslint-disable-next-line valid-jsdoc
 /**
  * SkipIntroOutro component
  *
- * @class SkipIntroOutro
+ * @class Skip
  * @extends {Component}
  */
-
+@connect(mapStateToProps, bindActions(actions))
 @withPlayer
+@withEventManager
 @withLogger(COMPONENT_NAME)
 @withText({
   skipIntroTxt: 'skip.skipIntro',
   watchNextTxt: 'skip.watchNext'
 })
-class SkipIntroOutro extends Component {
+class Skip extends Component {
   intro: SkipPoint;
   outro: SkipPoint;
   constructor(props: any) {
     super(props);
-    this.state = {
-      currentMode: Mode.OFF
-    };
   }
   componentDidMount() {
-    const {player, eventManager} = this.props;
-    // 1) - prevent listening, 2) - duration unavailable
-    eventManager.listen(player, player.Event.FIRST_PLAY, () => {
+    console.log('2222', ui);
+    this.setState({currentMode: Mode.OFF});
+    const {player} = this.props;
+    this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => {
       this._setIntroOutroData();
     });
   }
 
   _setIntroOutroData = (): void => {
-    const {player, eventManager} = this.props;
+    const {player} = this.props;
     const {intro, outro} = this.props.player.sources.metadata;
     this._setIntroData(intro);
     this._setOutroData(outro);
     if (this.intro || this.outro) {
-      eventManager.listen(player, player.Event.TIME_UPDATE, () => this._updateMode());
+      this.props.eventManager.listen(player, player.Event.TIME_UPDATE, () => this._updateMode());
     }
   };
 
@@ -92,6 +102,7 @@ class SkipIntroOutro extends Component {
   }
 
   _show(mode: string, timeout: number) {
+    // TODO logger
     this.setState({currentMode: mode});
     setTimeout(() => this._hide(), timeout * 1000);
   }
@@ -102,7 +113,7 @@ class SkipIntroOutro extends Component {
 
   _seek = (): void => {
     this.setState({currentMode: Mode.OFF});
-    const seekTo = this.state.currentMode === Mode.INTRO ? this.intro : this.outro.endTime;
+    const seekTo = this.state.currentMode === Mode.INTRO ? this.intro.endTime : this.outro.endTime;
     this.props.player.currentTime = seekTo;
   };
 
@@ -129,5 +140,5 @@ class SkipIntroOutro extends Component {
   }
 }
 
-SkipIntroOutro.displayName = COMPONENT_NAME;
-export {SkipIntroOutro};
+Skip.displayName = COMPONENT_NAME;
+export {Skip};

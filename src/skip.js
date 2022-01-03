@@ -1,16 +1,16 @@
 // @flow
 import {KalturaPlayer, BasePlugin} from 'kaltura-player-js';
-import {SkipIntroOutro as SkipIntroOutroComponent} from './components/skip-inro-outro/skip-intro-outro';
+import {Skip as SkipComponent} from './components/skip/skip';
 
 const pluginName: string = 'skip';
 /**
  * The Skip plugin.
- * @class SkipIntroOutro
+ * @class Skip
  * @param {string} name - The plugin name.
  * @param {Object} config - The plugin config.
  * @extends BasePlugin
  */
-class SkipIntroOutro extends BasePlugin {
+class Skip extends BasePlugin {
   /**
    * The default configuration of the plugin.
    * @type {Object}
@@ -27,10 +27,10 @@ class SkipIntroOutro extends BasePlugin {
   getUIComponents() {
     return [
       {
-        label: 'SkipIntroOutroComponent',
+        label: 'SkipComponent',
         presets: ['Playback'],
         area: 'InteractiveArea',
-        get: SkipIntroOutroComponent,
+        get: SkipComponent,
         props: {
           config: this.config,
           eventManager: this.eventManager
@@ -44,11 +44,11 @@ class SkipIntroOutro extends BasePlugin {
    * @static
    * @override
    * @public
-   * @memberof SkipIntroOutro
+   * @memberof Skip
    */
   static isValid() {
     return true;
   }
 }
 
-export {SkipIntroOutro, pluginName};
+export {Skip, pluginName};

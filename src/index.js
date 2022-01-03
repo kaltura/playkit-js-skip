@@ -1,7 +1,7 @@
 // @flow
 import {registerPlugin} from 'kaltura-player-js';
-import {SkipIntroOutro as Plugin, pluginName} from './skip-inrto-outro';
-import {SkipIntroOutro} from './components/skip-inro-outro/skip-intro-outro';
+import {Skip as Plugin, pluginName} from './skip';
+import {Skip} from './components/skip/skip';
 declare var __VERSION__: string;
 declare var __NAME__: string;
 
@@ -10,6 +10,6 @@ const NAME = __NAME__;
 
 export {VERSION, NAME};
 export {Plugin};
-export {SkipIntroOutro};
+export {Skip};
 
 registerPlugin(pluginName, Plugin);
