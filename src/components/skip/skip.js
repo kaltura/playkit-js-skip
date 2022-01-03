@@ -49,7 +49,6 @@ class Skip extends Component {
     super(props);
   }
   componentDidMount() {
-    console.log('2222', ui);
     this.setState({currentMode: Mode.OFF});
     const {player} = this.props;
     this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => {
