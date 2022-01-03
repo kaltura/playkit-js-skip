@@ -63,6 +63,8 @@ class Skip extends Component {
     this._setOutroData(outro);
     if (this.intro || this.outro) {
       this.props.eventManager.listen(player, player.Event.TIME_UPDATE, () => this._updateMode());
+    } else {
+      this.props.logger.warn('the plugin is disabled due to invalid skip points values', intro);
     }
   };
 
