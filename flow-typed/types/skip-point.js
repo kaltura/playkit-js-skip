@@ -1,4 +1,2 @@
 // @flow
-declare type SkipPoint = IntroOutroTime & {
-  timeout: number
-};
+declare type SkipPoint = IntroOutroTime;

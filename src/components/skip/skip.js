@@ -45,13 +45,11 @@ const COMPONENT_NAME = 'SkipIntroOutro';
 class Skip extends Component {
   intro: SkipPoint;
   outro: SkipPoint;
-  constructor(props: any) {
-    super(props);
-  }
+
   componentDidMount() {
     this.setState({currentMode: Mode.OFF});
     const {player} = this.props;
-    this.props.eventManager.listen(player, player.Event.FIRST_PLAY, () => {
+    this.props.eventManager.listen(player, player.Event.FIRST_PLAYING, () => {
       this._setIntroOutroData();
     });
   }
@@ -70,9 +68,7 @@ class Skip extends Component {
 
   _setIntroData = intro => {
     if (typeof intro?.startTime === 'number' && typeof intro?.endTime === 'number') {
-      const duration: number = intro.endTime - intro.startTime;
-      const timeout: number = Math.min(this.props.config.timeout, duration);
-      this.intro = {...intro, timeout, mode: Mode.INTRO};
+      this.intro = {...intro};
     } else {
       this.props.logger.warn('the intro metadata values must be set and type of number', intro);
     }
@@ -83,9 +79,7 @@ class Skip extends Component {
       if (typeof outro?.endTime !== 'number' || outro?.endTime === -1) {
         outro.endTime = this.props.player.duration;
       }
-      const duration: number = outro.endTime - outro.startTime;
-      const timeout: number = Math.min(this.props.config.timeout, duration);
-      this.outro = {...outro, timeout, mode: Mode.OUTRO};
+      this.outro = {...outro};
     } else {
       this.props.logger.warn('the outro startTime must be set and type of number', outro);
     }
@@ -94,22 +88,21 @@ class Skip extends Component {
   _updateMode = (): void => {
     if (this.state.currentMode === Mode.OFF) {
       if (this._isOverlapping(this.intro)) {
-        this._show(Mode.INTRO, this.intro.timeout);
+        this._show(Mode.INTRO);
       } else if (this._isOverlapping(this.outro)) {
-        this._show(Mode.OUTRO, this.outro.timeout);
+        this._show(Mode.OUTRO);
       }
     }
   };
 
   _isOverlapping(skipPoint: SkipPoint) {
     const {player} = this.props;
-    return player.currentTime >= skipPoint.startTime && player.currentTime < skipPoint.startTime + skipPoint.timeout;
+    return player.currentTime >= skipPoint.startTime && player.currentTime < skipPoint.endTime;
   }
 
-  _show(mode: string, timeout: number) {
+  _show(mode: string) {
     this.props.logger.log(`enter ${mode} skip point`);
     this.setState({currentMode: mode});
-    setTimeout(() => this._hide(), timeout * 1000);
   }
 
   _hide() {

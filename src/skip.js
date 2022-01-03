@@ -1,5 +1,5 @@
 // @flow
-import {KalturaPlayer, BasePlugin} from 'kaltura-player-js';
+import {KalturaPlayer, BasePlugin, ui} from 'kaltura-player-js';
 import {Skip as SkipComponent} from './components/skip/skip';
 
 const pluginName: string = 'skip';
@@ -11,16 +11,6 @@ const pluginName: string = 'skip';
  * @extends BasePlugin
  */
 class Skip extends BasePlugin {
-  /**
-   * The default configuration of the plugin.
-   * @type {Object}
-   * @static
-   * @memberof SkipIntoOutro
-   */
-  static defaultConfig: SkipConfig = {
-    timeout: 5
-  };
-
   constructor(name: string, player: KalturaPlayer, config: SkipConfig) {
     super(name, player, config);
   }
@@ -30,11 +20,7 @@ class Skip extends BasePlugin {
         label: 'SkipComponent',
         presets: ['Playback'],
         area: 'InteractiveArea',
-        get: SkipComponent,
-        props: {
-          config: this.config,
-          eventManager: this.eventManager
-        }
+        get: SkipComponent
       }
     ];
   }
@@ -48,6 +34,11 @@ class Skip extends BasePlugin {
    */
   static isValid() {
     return true;
+  }
+
+  loadMedia() {
+    console.log('212', this.player.sources);
+    console.log('212', this.player.sources.metadata.intro);
   }
 }
 
