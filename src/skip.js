@@ -20,24 +20,13 @@ class Skip extends BasePlugin {
     this.currentMode = Mode.OFF;
   }
 
-  /**
-   * Whether the Skip plugin is valid.
-   * @static
-   * @override
-   * @public
-   * @memberof Skip
-   */
-  static isValid() {
-    return true;
-  }
-
-  loadMedia() {
+  loadMedia(): void {
     this.eventManager.listenOnce(this.player, this.player.Event.FIRST_PLAYING, () => {
       this._setIntroOutroData();
     });
   }
 
-  _setIntroOutroData = (): void => {
+  _setIntroOutroData(): void {
     const {intro, outro} = this.player.sources.metadata;
     this._setIntroData(intro);
     this._setOutroData(outro);
@@ -46,9 +35,9 @@ class Skip extends BasePlugin {
     } else {
       this.logger.warn('the plugin is disabled due to invalid skip points values', intro);
     }
-  };
+  }
 
-  _setIntroData(intro) {
+  _setIntroData(intro: SkipPoint): void {
     if (typeof intro?.startTime === 'number' && typeof intro?.endTime === 'number') {
       this.intro = {...intro};
     } else {
@@ -56,7 +45,7 @@ class Skip extends BasePlugin {
     }
   }
 
-  _setOutroData(outro) {
+  _setOutroData(outro: SkipPoint): void {
     if (typeof outro?.startTime === 'number') {
       if (typeof outro?.endTime !== 'number' || outro?.endTime === -1) {
         outro.endTime = this.player.duration;
@@ -67,7 +56,7 @@ class Skip extends BasePlugin {
     }
   }
 
-  _updateMode = (): void => {
+  _updateMode(): void {
     if (this._isOverlapping(this.intro)) {
       this._show(Mode.INTRO);
     } else if (this._isOverlapping(this.outro)) {
@@ -75,16 +64,15 @@ class Skip extends BasePlugin {
     } else {
       this._hide();
     }
-  };
+  }
 
-  _isOverlapping(skipPoint: SkipPoint) {
+  _isOverlapping(skipPoint: SkipPoint): boolean {
     return this.player.currentTime >= skipPoint.startTime && this.player.currentTime < skipPoint.endTime;
   }
 
-  _show(mode: string) {
+  _show(mode: string): void {
     if (this.currentMode === Mode.OFF) {
       this.currentMode = mode;
-      console.log('###', 'on', this.player.currentTime);
       this.removeComponent = this.player.ui.addComponent({
         label: 'SkipComponent',
         presets: ['Playback'],
@@ -95,19 +83,22 @@ class Skip extends BasePlugin {
     }
   }
 
-  _hide() {
+  _hide(): void {
     if (this.currentMode !== Mode.OFF) {
       this.currentMode = Mode.OFF;
-      console.log('###', 'off', this.player.currentTime);
       this.removeComponent();
     }
   }
 
-  _seek = (): void => {
+  _seek(): void {
     const seekTo = this.currentMode === Mode.INTRO ? this.intro.endTime : this.outro.endTime;
     this.player.currentTime = seekTo;
     this._hide();
-  };
+  }
+
+  static isValid(): boolean {
+    return true;
+  }
 }
 
 export {Skip, pluginName};

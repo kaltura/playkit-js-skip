@@ -15,7 +15,7 @@ export const Mode = {
   OFF: 'off'
 };
 
-const COMPONENT_NAME = 'SkipIntroOutro';
+const COMPONENT_NAME = 'Skip';
 
 /**
  * SkipIntroOutro component
@@ -23,18 +23,11 @@ const COMPONENT_NAME = 'SkipIntroOutro';
  * @class Skip
  * @extends {Component}
  */
-
 @withText({
   skipIntroTxt: 'skip.skipIntro',
   watchNextTxt: 'skip.watchNext'
 })
 class Skip extends Component {
-  /**
-   * render element
-   *
-   * @returns {React$Element} component element
-   * @memberof SkipIntroOutro
-   */
   render(): React$Element<any> | void {
     const skipTxt = this.props.mode === Mode.INTRO ? this.props.skipIntroTxt : this.props.watchNextTxt;
     return (
