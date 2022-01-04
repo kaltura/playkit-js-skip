@@ -78,7 +78,7 @@ class Skip extends BasePlugin {
         presets: ['Playback'],
         area: 'BottomBar',
         get: SkipComponent,
-        props: {mode, seek: this._seek}
+        props: {mode, seek: this.seek.bind(this)}
       });
     }
   }
@@ -90,7 +90,7 @@ class Skip extends BasePlugin {
     }
   }
 
-  _seek(): void {
+  seek(): void {
     const seekTo = this.currentMode === Mode.INTRO ? this.intro.endTime : this.outro.endTime;
     this.player.currentTime = seekTo;
     this._hide();
