@@ -23,6 +23,7 @@ class Skip extends BasePlugin {
   loadMedia(): void {
     this.eventManager.listenOnce(this.player, this.player.Event.FIRST_PLAYING, () => {
       this._setIntroOutroData();
+      this._initListeners();
     });
   }
 
@@ -30,10 +31,14 @@ class Skip extends BasePlugin {
     const {intro, outro} = this.player.sources.metadata;
     this._setIntroData(intro);
     this._setOutroData(outro);
-    if (this.intro || this.outro) {
-      this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => this._updateMode());
+  }
+
+  _initListeners() {
+    if (!this.intro && !this.outro) {
+      this.logger.warn('the plugin is disabled due to invalid skip points values', this.player.sources.metadata);
     } else {
-      this.logger.warn('the plugin is disabled due to invalid skip points values', intro);
+      if (this.intro) this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => this._updateMode(Mode.INTRO, this.intro));
+      if (this.outro) this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => this._updateMode(Mode.OUTRO, this.outro));
     }
   }
 
@@ -56,21 +61,21 @@ class Skip extends BasePlugin {
     }
   }
 
-  _updateMode(): void {
-    if (this._isOverlapping(this.intro)) {
-      this._show(Mode.INTRO);
-    } else if (this._isOverlapping(this.outro)) {
-      this._show(Mode.OUTRO);
-    } else {
-      this._hide();
+  _updateMode(mode: string, skipPoint: SkipPoint): void {
+    if (this.currentMode === Mode.OFF || this.currentMode === mode) {
+      if (this._isInSkipPointRange(skipPoint)) {
+        this._displayButton(mode);
+      } else {
+        this._removeButton();
+      }
     }
   }
 
-  _isOverlapping(skipPoint: SkipPoint): boolean {
+  _isInSkipPointRange(skipPoint: SkipPoint): boolean {
     return this.player.currentTime >= skipPoint.startTime && this.player.currentTime < skipPoint.endTime;
   }
 
-  _show(mode: string): void {
+  _displayButton(mode: string): void {
     if (this.currentMode === Mode.OFF) {
       this.currentMode = mode;
       this.removeComponent = this.player.ui.addComponent({
@@ -83,7 +88,7 @@ class Skip extends BasePlugin {
     }
   }
 
-  _hide(): void {
+  _removeButton(): void {
     if (this.currentMode !== Mode.OFF) {
       this.currentMode = Mode.OFF;
       this.removeComponent();
@@ -93,7 +98,7 @@ class Skip extends BasePlugin {
   seek(): void {
     const seekTo = this.currentMode === Mode.INTRO ? this.intro.endTime : this.outro.endTime;
     this.player.currentTime = seekTo;
-    this._hide();
+    this._removeButton();
   }
 
   static isValid(): boolean {
