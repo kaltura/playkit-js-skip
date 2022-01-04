@@ -76,7 +76,7 @@ class Skip extends BasePlugin {
       this.removeComponent = this.player.ui.addComponent({
         label: 'SkipComponent',
         presets: ['Playback'],
-        area: 'InteractiveArea',
+        area: 'BottomBar',
         get: SkipComponent,
         props: {mode, seek: this._seek}
       });
