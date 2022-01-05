@@ -16,13 +16,13 @@ let plugins = [
 module.exports = {
   context: __dirname + '/src',
   entry: {
-    'playkit-skip-intro-outro': 'index.js'
+    'playkit-skip': 'index.js'
   },
   output: {
     path: __dirname + '/dist',
     filename: '[name].js',
-    library: ['KalturaPlayer', 'plugins', 'skip-intro-outro'],
-    devtoolModuleFilenameTemplate: './skip-intro-outro/[resource-path]'
+    library: ['KalturaPlayer', 'plugins', 'skip'],
+    devtoolModuleFilenameTemplate: './skip/[resource-path]'
   },
   devtool: 'source-map',
   plugins: plugins,
