@@ -5,7 +5,7 @@
 [![](https://img.shields.io/npm/v/@playkit-js/skip/latest.svg)](https://www.npmjs.com/package/@playkit-js/skip)
 [![](https://img.shields.io/npm/v/@playkit-js/skip/canary.svg)](https://www.npmjs.com/package/@playkit-js/skip/v/canary)
 
-PlayKit JS SkipInrtoOutro is written in [ECMAScript6], statically analysed using [Flow] and transpiled in ECMAScript5 using [Babel].
+PlayKit JS Skip is written in [ECMAScript6], statically analysed using [Flow] and transpiled in ECMAScript5 using [Babel].
 
 [flow]: https://flow.org/
 [ecmascript6]: https://github.com/ericdouglas/ES6-Learning#articles--tutorials
