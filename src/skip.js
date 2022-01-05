@@ -30,6 +30,10 @@ class Skip extends BasePlugin {
     this._initTranslations();
   }
 
+  static isValid(): boolean {
+    return true;
+  }
+
   _initTranslations() {
     this._translations.set(Mode.INTRO, 'skip.skipIntro');
     this._translations.set(Mode.OUTRO, 'skip.watchNext');
@@ -122,17 +126,14 @@ class Skip extends BasePlugin {
     this._removeButton();
   }
 
-  static isValid(): boolean {
-    return true;
-  }
-
-  destroy() {
-    this.reset();
-  }
-
-  reset() {
+  reset(): void {
     this._currentMode = Mode.OFF;
     this.eventManager.removeAll();
+  }
+
+  destroy(): void {
+    this.reset();
+    this.eventManager.destroy();
   }
 }
 
