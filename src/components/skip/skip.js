@@ -3,11 +3,24 @@
  * @jsx h
  * @ignore
  */
+import {h, Component} from 'preact';
 import {ui} from 'kaltura-player-js';
 import skipStyle from './skip.scss';
-const {preact, preacti18n} = ui;
-const {h, Component} = preact;
-const {Text} = preacti18n;
+
+const {Text} = ui.preacti18n;
+const {PLAYER_SIZE} = ui.Components;
+const {bindActions} = ui.Utils;
+const {actions} = ui.Reducers.shell;
+const {connect} = ui.redux;
+
+/**
+ * mapping state to props
+ * @param {*} state - redux store state
+ * @returns {Object} - mapped state to this component
+ */
+const mapStateToProps = state => ({
+  playerSize: state.shell.playerSize
+});
 
 const COMPONENT_NAME = 'Skip';
 
@@ -17,13 +30,16 @@ const COMPONENT_NAME = 'Skip';
  * @class Skip
  * @extends {Component}
  */
+@connect(mapStateToProps, bindActions(actions))
 class Skip extends Component {
   render(): React$Element<any> | void {
-    return (
-      <div tabIndex="0" aria-label={this.props.label} className={skipStyle.btnSkip} onClick={this.props.onClick}>
-        <Text id={this.props.label} />
-      </div>
-    );
+    if (this.props.playerSize !== PLAYER_SIZE.TINY) {
+      return (
+        <div tabIndex="0" aria-label={this.props.label} className={skipStyle.btnSkip} onClick={this.props.onClick}>
+          <Text id={this.props.label} />
+        </div>
+      );
+    }
   }
 }
 
