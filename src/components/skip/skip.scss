@@ -1,8 +1,9 @@
-.interactive-area {
+.bottom-bar {
   .btn-skip {
     position: absolute;
+    top: 0;
     right: 0;
-    bottom: 0;
+    transform: translateY(-90%);
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;

@@ -55,8 +55,14 @@ Finally, add the bundle as a script tag in your page, and initialize the player
     },
     ...
     plugins: {
-      skip: {
-          timeout: 10 // number - Default 5
+      'share': {
+        'shareUrl': 'YOUR SHARE URL', //string - Default will take the parent url
+        'embedUrl': 'YOUR EMBED URL', //string
+        'enableTimeOffset': true, //boolean - Default false
+        'useNative': true, //boolean - use native API
+        'uiComponent': {
+          'presets': ['Playback', 'Live'],
+          'area': 'TopBarRightControls'
         }
       }
     }
