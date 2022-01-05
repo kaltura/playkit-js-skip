@@ -9,28 +9,44 @@
 </head>
 
 <body>
-<input type="button" onclick="changeMedia()" value="Change Media"/>
-
 <div id="player-placeholder" style="width: 640px; height: 360px;"></div>
 <script>
-  let config = {
+  const config = {
     logLevel: "DEBUG",
-    "targetId": "player-placeholder",
-    "provider": {
-      "partnerId": "2215841",
-      "uiConfId": "42237501"
+    targetId: "player-placeholder",
+    provider: {
+      partnerId: "2215841",
+      uiConfId: "42237501"
     },
-    plugins:{
-      skip:{
-        // timeout: number - How long should the skip intro/credits UI be visible while it’s not clicked, the  Default is 5
+    ui: {  // translations - for local environment
+      locale: 'en',
+      translations: {
+        en: {
+          "skip": {
+            "skipIntro": "Skip Intro",
+            "watchNext": "Watch Next"
+          }
+        }
       }
+    },
+    plugins: {
+      skip: {}
     }
   }
 
-
-  var kalturaPlayer = KalturaPlayer.setup(config);
-  kalturaPlayer.loadMedia({ entryId: "1_ebs5e9cy" });
+  const kalturaPlayer = KalturaPlayer.setup(config);
+  kalturaPlayer.loadMedia({entryId: "1_ebs5e9cy"}, {
+    metadata: {
+      intro: {
+        startTime: 1,
+        endTime: 5,
+      },
+      outro: {
+        startTime: 7,
+        endTime: 20,
+      }
+    }
+  });
 </script>
 </body>
-
 </html>
