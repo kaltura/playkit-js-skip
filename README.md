@@ -47,29 +47,41 @@ Finally, add the bundle as a script tag in your page, and initialize the player
 <script type="text/javascript" src="/PATH/TO/FILE/playkit-js-skip.js"></script>
 <div id="player-placeholder"" style="height:360px; width:640px">
 <script type="text/javascript">
-  var config = {
+  const config = {
     targetId: 'player-placeholder',
     provider: {
       partnerId: {YOUR_PARTNER_ID}
       ...
     },
-    ...
+    // Translations - for local environment
+    // ui: {
+    //   translations: {
+    //     en: {
+    //       "skip": {
+    //         "skipIntro": "Skip Intro",
+    //         "watchNext": "Watch Next"
+    //       }
+    //     }
+    //   }
+    // },
     plugins: {
-      'share': {
-        'shareUrl': 'YOUR SHARE URL', //string - Default will take the parent url
-        'embedUrl': 'YOUR EMBED URL', //string
-        'enableTimeOffset': true, //boolean - Default false
-        'useNative': true, //boolean - use native API
-        'uiComponent': {
-          'presets': ['Playback', 'Live'],
-          'area': 'TopBarRightControls'
-        }
-      }
+      skip: {}
     }
   ...
   };
-  var player = KalturaPlayer.setup(config);
-  player.play();
+  const kalturaPlayer = KalturaPlayer.setup(config);
+  kalturaPlayer.loadMedia({entryId: '0_wifqaipd'}, {
+    metadata: {
+      intro: {
+        startTime: 1,
+        endTime: 32,
+      },
+      outro: {
+        startTime: 4,
+        endTime: 5,
+      }
+    }
+  });
 </script>
 ```
 
