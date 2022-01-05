@@ -58,10 +58,13 @@ class Skip extends BasePlugin {
   }
 
   _setIntroData(intro: SkipPoint): void {
-    if (typeof intro?.startTime === 'number' && typeof intro?.endTime === 'number') {
+    if (typeof intro?.endTime === 'number') {
+      if (typeof intro?.startTime !== 'number') {
+        intro.startTime = 0;
+      }
       this.intro = {...intro};
     } else {
-      this.logger.warn('the intro metadata values must be set and type of number', intro);
+      this.logger.warn('the intro endTime must be set and type of number', intro);
     }
   }
 
