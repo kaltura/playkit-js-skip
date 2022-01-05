@@ -1,8 +1,15 @@
 // @flow
 import {KalturaPlayer, BasePlugin} from 'kaltura-player-js';
-import {Mode, Skip as SkipComponent} from './components/skip/skip';
+import {Skip as SkipComponent} from './components/skip/skip';
 
 const pluginName: string = 'skip';
+
+export const Mode = {
+  INTRO: 'intro',
+  OUTRO: 'outro',
+  OFF: 'off'
+};
+
 /**
  * The Skip plugin.
  * @class Skip
@@ -15,9 +22,17 @@ class Skip extends BasePlugin {
   outro: SkipPoint;
   currentMode: string;
   removeComponent: Function;
+  translations: Map<string, string>;
   constructor(name: string, player: KalturaPlayer, config: SkipConfig) {
     super(name, player, config);
     this.currentMode = Mode.OFF;
+    this.translations = new Map();
+    this.initTranslations();
+  }
+
+  initTranslations() {
+    this.translations.set(Mode.INTRO, 'skip.skipIntro');
+    this.translations.set(Mode.OUTRO, 'skip.watchNext');
   }
 
   loadMedia(): void {
@@ -83,7 +98,10 @@ class Skip extends BasePlugin {
         presets: ['Playback'],
         area: 'BottomBar',
         get: SkipComponent,
-        props: {mode, seek: this.seek.bind(this)}
+        props: {
+          label: this.translations.get(mode),
+          seek: this.seek.bind(this)
+        }
       });
     }
   }
