@@ -20,7 +20,7 @@ const COMPONENT_NAME = 'Skip';
 class Skip extends Component {
   render(): React$Element<any> | void {
     return (
-      <div tabIndex="0" aria-label={this.props.label} className={skipStyle.btnSkip} onClick={this.props.seek}>
+      <div tabIndex="0" aria-label={this.props.label} className={skipStyle.btnSkip} onClick={this.props.onClick}>
         <Text id={this.props.label} />
       </div>
     );

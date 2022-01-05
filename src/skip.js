@@ -18,21 +18,21 @@ export const Mode = {
  * @extends BasePlugin
  */
 class Skip extends BasePlugin {
-  intro: SkipPoint;
-  outro: SkipPoint;
-  currentMode: string;
-  removeComponent: Function;
-  translations: Map<string, string>;
+  _intro: SkipPoint;
+  _outro: SkipPoint;
+  _currentMode: string;
+  _removeComponent: Function;
+  _translations: Map<string, string>;
   constructor(name: string, player: KalturaPlayer, config: SkipConfig) {
     super(name, player, config);
-    this.currentMode = Mode.OFF;
-    this.translations = new Map();
-    this.initTranslations();
+    this._currentMode = Mode.OFF;
+    this._translations = new Map();
+    this._initTranslations();
   }
 
-  initTranslations() {
-    this.translations.set(Mode.INTRO, 'skip.skipIntro');
-    this.translations.set(Mode.OUTRO, 'skip.watchNext');
+  _initTranslations() {
+    this._translations.set(Mode.INTRO, 'skip.skipIntro');
+    this._translations.set(Mode.OUTRO, 'skip.watchNext');
   }
 
   loadMedia(): void {
@@ -49,11 +49,11 @@ class Skip extends BasePlugin {
   }
 
   _initListeners() {
-    if (!this.intro && !this.outro) {
+    if (!this._intro && !this._outro) {
       this.logger.warn('the plugin is disabled due to invalid skip points values', this.player.sources.metadata);
     } else {
-      if (this.intro) this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => this._updateMode(Mode.INTRO, this.intro));
-      if (this.outro) this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => this._updateMode(Mode.OUTRO, this.outro));
+      if (this._intro) this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => this._updateMode(Mode.INTRO, this._intro));
+      if (this._outro) this.eventManager.listen(this.player, this.player.Event.TIME_UPDATE, () => this._updateMode(Mode.OUTRO, this._outro));
     }
   }
 
@@ -62,7 +62,7 @@ class Skip extends BasePlugin {
       if (typeof intro?.startTime !== 'number') {
         intro.startTime = 0;
       }
-      this.intro = {...intro};
+      this._intro = {...intro};
     } else {
       this.logger.warn('the intro endTime must be set and type of number', intro);
     }
@@ -73,14 +73,14 @@ class Skip extends BasePlugin {
       if (typeof outro?.endTime !== 'number' || outro?.endTime === -1) {
         outro.endTime = this.player.duration;
       }
-      this.outro = {...outro};
+      this._outro = {...outro};
     } else {
       this.logger.warn('the outro startTime must be set and type of number', outro);
     }
   }
 
   _updateMode(mode: string, skipPoint: SkipPoint): void {
-    if (this.currentMode === Mode.OFF || this.currentMode === mode) {
+    if (this._currentMode === Mode.OFF || this._currentMode === mode) {
       if (this._isInSkipPointRange(skipPoint)) {
         this._displayButton(mode);
       } else {
@@ -94,30 +94,30 @@ class Skip extends BasePlugin {
   }
 
   _displayButton(mode: string): void {
-    if (this.currentMode === Mode.OFF) {
-      this.currentMode = mode;
-      this.removeComponent = this.player.ui.addComponent({
+    if (this._currentMode === Mode.OFF) {
+      this._currentMode = mode;
+      this._removeComponent = this.player.ui.addComponent({
         label: 'SkipComponent',
         presets: ['Playback'],
         area: 'BottomBar',
         get: SkipComponent,
         props: {
-          label: this.translations.get(mode),
-          seek: this.seek.bind(this)
+          label: this._translations.get(mode),
+          onClick: this.seek.bind(this)
         }
       });
     }
   }
 
   _removeButton(): void {
-    if (this.currentMode !== Mode.OFF) {
-      this.currentMode = Mode.OFF;
-      this.removeComponent();
+    if (this._currentMode !== Mode.OFF) {
+      this._currentMode = Mode.OFF;
+      this._removeComponent();
     }
   }
 
   seek(): void {
-    const seekTo = this.currentMode === Mode.INTRO ? this.intro.endTime : this.outro.endTime;
+    const seekTo = this._currentMode === Mode.INTRO ? this._intro.endTime : this._outro.endTime;
     this.player.currentTime = seekTo;
     this._removeButton();
   }
@@ -131,7 +131,7 @@ class Skip extends BasePlugin {
   }
 
   reset() {
-    this.currentMode = Mode.OFF;
+    this._currentMode = Mode.OFF;
     this.eventManager.removeAll();
   }
 }
