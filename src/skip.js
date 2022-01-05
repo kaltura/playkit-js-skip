@@ -125,6 +125,15 @@ class Skip extends BasePlugin {
   static isValid(): boolean {
     return true;
   }
+
+  destroy() {
+    this.reset();
+  }
+
+  reset() {
+    this.currentMode = Mode.OFF;
+    this.eventManager.removeAll();
+  }
 }
 
 export {Skip, pluginName};
