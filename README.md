@@ -1,11 +1,11 @@
-# PlayKit JS SkipIntoOutro - [SkipIntoOutro] UI Plugin for the [Kaltura Player JS]
+# PlayKit JS Skip - [Skip] UI Plugin for the [Kaltura Player JS]
 
-[![Build Status](https://travis-ci.com/kaltura/playkit-js-avplay.svg?branch=master)](https://travis-ci.org/kaltura/playkit-js-share)
+[![Build Status](https://travis-ci.com/kaltura/playkit-js-avplay.svg?branch=master)](https://travis-ci.org/kaltura/playkit-js-skip)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![](https://img.shields.io/npm/v/@playkit-js/share/latest.svg)](https://www.npmjs.com/package/@playkit-js/share)
-[![](https://img.shields.io/npm/v/@playkit-js/share/canary.svg)](https://www.npmjs.com/package/@playkit-js/share/v/canary)
+[![](https://img.shields.io/npm/v/@playkit-js/skip/latest.svg)](https://www.npmjs.com/package/@playkit-js/skip)
+[![](https://img.shields.io/npm/v/@playkit-js/skip/canary.svg)](https://www.npmjs.com/package/@playkit-js/skip/v/canary)
 
-PlayKit JS SkipIntoOutro is written in [ECMAScript6], statically analysed using [Flow] and transpiled in ECMAScript5 using [Babel].
+PlayKit JS Skip is written in [ECMAScript6], statically analysed using [Flow] and transpiled in ECMAScript5 using [Babel].
 
 [flow]: https://flow.org/
 [ecmascript6]: https://github.com/ericdouglas/ES6-Learning#articles--tutorials
@@ -25,8 +25,8 @@ First, clone and run [yarn] to install dependencies:
 [yarn]: https://yarnpkg.com/lang/en/
 
 ```
-git clone https://github.com/kaltura/playkit-js-share.git
-cd playkit-js-share
+git clone https://github.com/kaltura/playkit-js-skip.git
+cd playkit-js-skip
 yarn install
 ```
 
@@ -43,33 +43,45 @@ yarn run build
 Finally, add the bundle as a script tag in your page, and initialize the player
 
 ```html
-<script type="text/javascript" src="/PATH/TO/FILE/kaltura-{ovp/ott}-player.js"></script>
-<script type="text/javascript" src="/PATH/TO/FILE/playkit-js-skip-intro-outro.js"></script>
+<script type="text/javascript" src="/PATH/TO/FILE/kaltura-ovp-player.js"></script>
+<script type="text/javascript" src="/PATH/TO/FILE/playkit-js-skip.js"></script>
 <div id="player-placeholder"" style="height:360px; width:640px">
 <script type="text/javascript">
-  var config = {
+  const config = {
     targetId: 'player-placeholder',
     provider: {
       partnerId: {YOUR_PARTNER_ID}
       ...
     },
-    ...
+    // Translations - for local environment
+    // ui: {
+    //   translations: {
+    //     en: {
+    //       "skip": {
+    //         "skipIntro": "Skip Intro",
+    //         "watchNext": "Watch Next"
+    //       }
+    //     }
+    //   }
+    // },
     plugins: {
-      'share': {
-        'shareUrl': 'YOUR SHARE URL', //string - Default will take the parent url
-        'embedUrl': 'YOUR EMBED URL', //string
-        'enableTimeOffset': true, //boolean - Default false
-        'useNative': true, //boolean - use native API
-        'uiComponent': {
-          'presets': ['Playback', 'Live'],
-          'area': 'TopBarRightControls'
-        }
-      }
+      skip: {}
     }
   ...
   };
-  var player = KalturaPlayer.setup(config);
-  player.play();
+  const kalturaPlayer = KalturaPlayer.setup(config);
+  kalturaPlayer.loadMedia({entryId: '0_wifqaipd'}, {
+    metadata: {
+      intro: {
+        startTime: 1,
+        endTime: 32,
+      },
+      outro: {
+        startTime: 4,
+        endTime: 5,
+      }
+    }
+  });
 </script>
 ```
 
@@ -109,7 +121,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kaltura/playkit-js-share/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kaltura/playkit-js-skip/tags).
 
 ## License
 

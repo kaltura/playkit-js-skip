@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdnapisec.kaltura.com/p/2215841/embedPlaykitJs/uiconf_id/42237501/"></script>
+  <script src="./playkit-skip.js"></script>
+</head>
+
+<body>
+<div id="player-placeholder" style="width: 640px; height: 360px;"></div>
+<script>
+  const config = {
+    logLevel: "DEBUG",
+    targetId: "player-placeholder",
+    provider: {
+      partnerId: "2215841",
+      uiConfId: "42237501"
+    },
+    ui: {  // translations - for local environment
+      locale: 'en',
+      translations: {
+        en: {
+          "skip": {
+            "skipIntro": "Skip Intro",
+            "watchNext": "Watch Next"
+          }
+        }
+      }
+    },
+    plugins: {
+      skip: {}
+    }
+  }
+
+  const kalturaPlayer = KalturaPlayer.setup(config);
+  kalturaPlayer.loadMedia({entryId: "1_ebs5e9cy"}, {
+    metadata: {
+      intro: {
+        startTime: 1,
+        endTime: 5,
+      },
+      outro: {
+        startTime: 7,
+        endTime: 20,
+      }
+    }
+  });
+</script>
+</body>
+</html>
