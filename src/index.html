@@ -18,24 +18,24 @@
       partnerId: "2215841",
       uiConfId: "42237501"
     },
-    ui: {  // translations - for local environment
-      locale: 'en',
-      translations: {
-        en: {
-          "skip": {
-            "skipIntro": "Skip Intro",
-            "watchNext": "Watch Next"
-          }
-        }
-      }
-    },
     plugins: {
       skip: {}
     }
+    // translations - for local environment
+    // ui: {
+    //   translations: {
+    //     en: {
+    //       "skip": {
+    //         "skipIntro": "Skip Intro",
+    //         "watchNext": "Watch Next"
+    //       }
+    //     }
+    //   }
+    // }
   }
 
-  const kalturaPlayer = KalturaPlayer.setup(config);
-  kalturaPlayer.loadMedia({entryId: "1_ebs5e9cy"}, {
+  const player = KalturaPlayer.setup(config);
+  player.loadMedia({entryId: "1_ebs5e9cy"}, {
     metadata: {
       intro: {
         startTime: 1,
