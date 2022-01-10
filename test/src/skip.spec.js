@@ -2,7 +2,7 @@ import '../../src/index';
 import {setup} from 'kaltura-player-js';
 import * as TestUtils from './utils/test-utils';
 import {Mode} from '../../src/skip';
-
+import {EventManager} from '@playkit-js/playkit-js';
 const targetId = 'player-placeholder-skip.spec';
 
 const mediaData = {
@@ -36,6 +36,7 @@ const config = {
 describe('Skip Plugin', function () {
   let player;
   let skipPlugin;
+  let eventManager = new EventManager();
   before(function () {
     TestUtils.createElement('DIV', targetId);
   });
@@ -123,8 +124,9 @@ describe('Skip Plugin', function () {
         }
       }
     });
-    player.addEventListener(player.Event.SEEKED, () => {
+    eventManager.listenOnce(player, player.Event.SEEKED, () => {
       player.reset();
+      player.configure({playback: {startTime: 1}});
       player.setMedia({
         sources: {
           ...mediaData,
@@ -133,7 +135,6 @@ describe('Skip Plugin', function () {
           }
         }
       });
-      player.currentTime = 2;
       player.addEventListener(player.Event.FIRST_PLAYING, () => {
         player.addEventListener(player.Event.TIME_UPDATE, () => {
           try {
