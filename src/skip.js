@@ -127,7 +127,7 @@ class Skip extends BasePlugin {
   }
 
   reset(): void {
-    this._currentMode = Mode.OFF;
+    this._removeButton();
     this.eventManager.removeAll();
   }
 
