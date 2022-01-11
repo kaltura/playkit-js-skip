@@ -76,6 +76,7 @@ class Skip extends BasePlugin {
     if (typeof outro?.startTime === 'number') {
       if (typeof outro?.endTime !== 'number' || outro?.endTime === -1) {
         outro.endTime = this.player.duration - 1;
+        this.eventManager.listen(this.player, this.player.Event.DURATION_CHANGE, () => (this._outro.endTime = this.player.duration - 1));
       }
       this._outro = {...outro};
     } else {
