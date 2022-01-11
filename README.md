@@ -44,7 +44,7 @@ Finally, add the bundle as a script tag in your page, and initialize the player
 
 ```html
 <script type="text/javascript" src="/PATH/TO/FILE/kaltura-ovp-player.js"></script>
-<script type="text/javascript" src="/PATH/TO/FILE/playkit-js-skip.js"></script>
+<script type="text/javascript" src="/PATH/TO/FILE/playkit-skip.js"></script>
 <div id="player-placeholder"" style="height:360px; width:640px">
 <script type="text/javascript">
   const config = {
@@ -53,7 +53,10 @@ Finally, add the bundle as a script tag in your page, and initialize the player
       partnerId: {YOUR_PARTNER_ID}
       ...
     },
-    // Translations - for local environment
+    plugins: {
+      skip: {}
+    }
+    // translations - for local environment
     // ui: {
     //   translations: {
     //     en: {
@@ -63,11 +66,7 @@ Finally, add the bundle as a script tag in your page, and initialize the player
     //       }
     //     }
     //   }
-    // },
-    plugins: {
-      skip: {}
-    }
-  ...
+    // }
   };
   const kalturaPlayer = KalturaPlayer.setup(config);
   kalturaPlayer.loadMedia({entryId: '0_wifqaipd'}, {
@@ -84,10 +83,6 @@ Finally, add the bundle as a script tag in your page, and initialize the player
   });
 </script>
 ```
-
-## Documentation
-
-- **[Configuration](docs/configuration.md)**
 
 ## Running the tests
 

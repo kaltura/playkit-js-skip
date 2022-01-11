@@ -18,24 +18,24 @@
       partnerId: "2215841",
       uiConfId: "42237501"
     },
-    ui: {  // translations - for local environment
-      locale: 'en',
-      translations: {
-        en: {
-          "skip": {
-            "skipIntro": "Skip Intro",
-            "watchNext": "Watch Next"
-          }
-        }
-      }
-    },
     plugins: {
       skip: {}
     }
+    // translations - for local environment
+    // ui: {
+    //   translations: {
+    //     en: {
+    //       "skip": {
+    //         "skipIntro": "Skip Intro",
+    //         "watchNext": "Watch Next"
+    //       }
+    //     }
+    //   }
+    // }
   }
 
-  const kalturaPlayer = KalturaPlayer.setup(config);
-  kalturaPlayer.loadMedia({entryId: "1_ebs5e9cy"}, {
+  const player = KalturaPlayer.setup(config);
+  player.loadMedia({entryId: "1_ebs5e9cy"}, {
     metadata: {
       intro: {
         startTime: 1,
@@ -47,6 +47,16 @@
       }
     }
   });
+
+  // Playlist example
+  // player.loadPlaylist({playlistId: '0_id05u6ul'},{
+  //   options: {autoContinue: true , loop: true},countdown: {timeToShow: 180, duration: 5, showing: true},
+  //   items:[
+  //     {sources:{metadata:{intro: {startTime: 10, endTime: 20},outro: {startTime: 100, endTime: 120}}}},
+  //     {sources:{metadata:{intro: {startTime: 5, endTime: 10},outro: {startTime: 125, endTime: 120}}}}
+  //     ...
+  //   ]
+  // });
 </script>
 </body>
 </html>
