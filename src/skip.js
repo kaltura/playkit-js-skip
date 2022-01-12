@@ -40,16 +40,11 @@ class Skip extends BasePlugin {
   }
 
   loadMedia(): void {
+    this.eventManager.listen(this.player, this.player.Event.DURATION_CHANGE, () => this._setOutroData());
     this.eventManager.listenOnce(this.player, this.player.Event.FIRST_PLAYING, () => {
-      this._setIntroOutroData();
+      this._setIntroData();
       this._initListeners();
     });
-  }
-
-  _setIntroOutroData(): void {
-    const {intro, outro} = this.player.sources.metadata;
-    this._setIntroData(intro);
-    this._setOutroData(outro);
   }
 
   _initListeners() {
@@ -61,7 +56,8 @@ class Skip extends BasePlugin {
     }
   }
 
-  _setIntroData(intro: SkipPoint): void {
+  _setIntroData(): void {
+    const {intro} = this.player.sources.metadata;
     if (typeof intro?.endTime === 'number') {
       if (typeof intro?.startTime !== 'number') {
         intro.startTime = 0;
@@ -72,10 +68,11 @@ class Skip extends BasePlugin {
     }
   }
 
-  _setOutroData(outro: SkipPoint): void {
+  _setOutroData(): void {
+    const {outro} = this.player.sources.metadata;
     if (typeof outro?.startTime === 'number') {
       if (typeof outro?.endTime !== 'number' || outro?.endTime === -1) {
-        outro.endTime = this.player.duration;
+        outro.endTime = this.player.duration - 1;
       }
       this._outro = {...outro};
     } else {

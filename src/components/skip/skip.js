@@ -19,7 +19,8 @@ const {connect} = ui.redux;
  * @returns {Object} - mapped state to this component
  */
 const mapStateToProps = state => ({
-  playerSize: state.shell.playerSize
+  playerSize: state.shell.playerSize,
+  loading: state.loading.show
 });
 
 const COMPONENT_NAME = 'Skip';
@@ -33,7 +34,7 @@ const COMPONENT_NAME = 'Skip';
 @connect(mapStateToProps, bindActions(actions))
 class Skip extends Component {
   render(): React$Element<any> | void {
-    if (this.props.playerSize !== PLAYER_SIZE.TINY) {
+    if (this.props.playerSize !== PLAYER_SIZE.TINY && !this.props.loading) {
       return (
         <div tabIndex="0" aria-label={this.props.label} className={skipStyle.btnSkip} onClick={this.props.onClick}>
           <Text id={this.props.label} />
