@@ -36,7 +36,11 @@ class Skip extends Component {
   render(): React$Element<any> | void {
     if (this.props.playerSize !== PLAYER_SIZE.TINY && !this.props.loading) {
       return (
-        <div tabIndex="0" aria-label={this.props.label} className={skipStyle.btnSkip} onClick={this.props.onClick}>
+        <div
+          onClick={this.props.onClick}
+          className={[skipStyle.btnSkip, this.props.area === 'InteractiveArea' ? skipStyle.inTimeout : skipStyle.outTimeout].join(' ')}
+          tabIndex="0"
+          aria-label={this.props.label}>
           <Text id={this.props.label} />
         </div>
       );

@@ -30,17 +30,18 @@ class Skip extends BasePlugin {
     this._initTranslations();
   }
 
+  static defaultConfig: SkipConfig = {
+    timeout: 5
+  };
+
   static isValid(): boolean {
     return true;
   }
 
-  _initTranslations() {
-    this._translations.set(Mode.INTRO, 'skip.skipIntro');
-    this._translations.set(Mode.OUTRO, 'skip.watchNext');
-  }
-
   loadMedia(): void {
-    this.eventManager.listen(this.player, this.player.Event.DURATION_CHANGE, () => this._setOutroData());
+    this.eventManager.listen(this.player, this.player.Event.DURATION_CHANGE, () => {
+      this._setOutroData();
+    });
     this.eventManager.listenOnce(this.player, this.player.Event.FIRST_PLAYING, () => {
       this._setIntroData();
       this._initListeners();
@@ -90,24 +91,33 @@ class Skip extends BasePlugin {
     }
   }
 
+  _displayButton(mode) {
+    if (this._currentMode === Mode.OFF) {
+      this._addButton(mode, 'InteractiveArea');
+      setTimeout(() => {
+        this._addButton(mode, 'BottomBar');
+      }, this.config.timeout * 1000);
+    }
+  }
+
   _isInSkipPointRange(skipPoint: SkipPoint): boolean {
     return this.player.currentTime >= skipPoint.startTime && this.player.currentTime < skipPoint.endTime;
   }
 
-  _displayButton(mode: string): void {
-    if (this._currentMode === Mode.OFF) {
-      this._currentMode = mode;
-      this._removeComponent = this.player.ui.addComponent({
-        label: 'SkipComponent',
-        presets: ['Playback'],
-        area: 'BottomBar',
-        get: SkipComponent,
-        props: {
-          label: this._translations.get(mode),
-          onClick: this.seek.bind(this)
-        }
-      });
-    }
+  _addButton(mode: string, area: string): void {
+    if (this._removeComponent) this._removeComponent();
+    this._currentMode = mode;
+    this._removeComponent = this.player.ui.addComponent({
+      label: 'SkipComponent',
+      presets: ['Playback'],
+      area: area,
+      get: SkipComponent,
+      props: {
+        label: this._translations.get(mode),
+        onClick: this.seek.bind(this),
+        area: area
+      }
+    });
   }
 
   _removeButton(): void {
@@ -115,6 +125,11 @@ class Skip extends BasePlugin {
       this._currentMode = Mode.OFF;
       this._removeComponent();
     }
+  }
+
+  _initTranslations() {
+    this._translations.set(Mode.INTRO, 'skip.skipIntro');
+    this._translations.set(Mode.OUTRO, 'skip.watchNext');
   }
 
   seek(): void {
