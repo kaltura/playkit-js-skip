@@ -38,10 +38,13 @@ class Skip extends BasePlugin {
     return true;
   }
 
+  _initTranslations() {
+    this._translations.set(Mode.INTRO, 'skip.skipIntro');
+    this._translations.set(Mode.OUTRO, 'skip.watchNext');
+  }
+
   loadMedia(): void {
-    this.eventManager.listen(this.player, this.player.Event.DURATION_CHANGE, () => {
-      this._setOutroData();
-    });
+    this.eventManager.listen(this.player, this.player.Event.DURATION_CHANGE, () => this._setOutroData());
     this.eventManager.listenOnce(this.player, this.player.Event.FIRST_PLAYING, () => {
       this._setIntroData();
       this._initListeners();
@@ -125,11 +128,6 @@ class Skip extends BasePlugin {
       this._currentMode = Mode.OFF;
       this._removeComponent();
     }
-  }
-
-  _initTranslations() {
-    this._translations.set(Mode.INTRO, 'skip.skipIntro');
-    this._translations.set(Mode.OUTRO, 'skip.watchNext');
   }
 
   seek(): void {
