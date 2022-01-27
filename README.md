@@ -54,7 +54,9 @@ Finally, add the bundle as a script tag in your page, and initialize the player
       ...
     },
     plugins: {
-      skip: {}
+      skip: {
+          timeout: 6
+      }
     }
     // translations - for local environment
     // ui: {
