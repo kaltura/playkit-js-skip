@@ -1,18 +1,23 @@
-.bottom-bar {
-  .btn-skip {
-    position: absolute;
+.btn-skip {
+  position: absolute;
+  right: 0;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 7px;
+
+  &.interactive-area-position {
+    bottom: 0;
+  }
+
+  &.bottom-bar-position {
     top: 0;
-    right: 0;
-    transform: translateY(-90%);
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 7px;
+    transform: translateY(-100%);
   }
 }

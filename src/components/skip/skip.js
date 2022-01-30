@@ -37,7 +37,14 @@ class Skip extends Component {
     if (this.props.playerSize !== PLAYER_SIZE.TINY && !this.props.loading) {
       return (
         <Localizer>
-          <div tabIndex="0" aria-label={<Text id={this.props.label} />} className={skipStyle.btnSkip} onClick={this.props.onClick}>
+          <div
+            onClick={this.props.onClick}
+            className={[
+              skipStyle.btnSkip,
+              this.props.parentComponent === 'InteractiveArea' ? skipStyle.interactiveAreaPosition : skipStyle.bottomBarPosition
+            ].join(' ')}
+            tabIndex="0"
+            aria-label={<Text id={this.props.label} />}>
             <Text id={this.props.label} />
           </div>
         </Localizer>
