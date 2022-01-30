@@ -38,7 +38,10 @@ class Skip extends Component {
       return (
         <div
           onClick={this.props.onClick}
-          className={[skipStyle.btnSkip, this.props.area === 'InteractiveArea' ? skipStyle.inTimeout : skipStyle.outTimeout].join(' ')}
+          className={[
+            skipStyle.btnSkip,
+            this.props.parentComponent === 'InteractiveArea' ? skipStyle.interactiveAreaPosition : skipStyle.bottomBarPosition
+          ].join(' ')}
           tabIndex="0"
           aria-label={this.props.label}>
           <Text id={this.props.label} />

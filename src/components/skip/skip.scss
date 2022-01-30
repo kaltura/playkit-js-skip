@@ -12,11 +12,11 @@
   cursor: pointer;
   padding: 7px;
 
-  &.in-timeout {
+  &.interactive-area-position {
     bottom: 0;
   }
 
-  &.out-timeout {
+  &.bottom-bar-position {
     top: 0;
     transform: translateY(-90%);
   }

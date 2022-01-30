@@ -98,7 +98,7 @@ class Skip extends BasePlugin {
     if (this._currentMode === Mode.OFF) {
       this._addButton(mode, 'InteractiveArea');
       setTimeout(() => {
-        this._addButton(mode, 'BottomBar');
+        this._relocateButton(mode);
       }, this.config.timeout * 1000);
     }
   }
@@ -107,27 +107,31 @@ class Skip extends BasePlugin {
     return this.player.currentTime >= skipPoint.startTime && this.player.currentTime < skipPoint.endTime;
   }
 
-  _addButton(mode: string, area: string): void {
-    if (this._removeComponent) this._removeComponent();
+  _addButton(mode: string, position: string): void {
     this._currentMode = mode;
     this._removeComponent = this.player.ui.addComponent({
       label: 'SkipComponent',
       presets: ['Playback'],
-      area: area,
+      area: position,
       get: SkipComponent,
       props: {
         label: this._translations.get(mode),
         onClick: this.seek.bind(this),
-        area: area
+        parentComponent: position
       }
     });
+  }
+
+  _relocateButton(mode) {
+    this._removeButton();
+    this._addButton(mode, 'BottomBar');
   }
 
   _removeButton(): void {
     if (this._currentMode !== Mode.OFF) {
       this._currentMode = Mode.OFF;
-      this._removeComponent();
     }
+    this._removeComponent && this._removeComponent();
   }
 
   seek(): void {
