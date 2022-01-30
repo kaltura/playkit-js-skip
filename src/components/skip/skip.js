@@ -7,7 +7,7 @@ import {h, Component} from 'preact';
 import {ui} from 'kaltura-player-js';
 import skipStyle from './skip.scss';
 
-const {Text} = ui.preacti18n;
+const {Text, Localizer} = ui.preacti18n;
 const {PLAYER_SIZE} = ui.Components;
 const {bindActions} = ui.Utils;
 const {actions} = ui.Reducers.shell;
@@ -36,16 +36,16 @@ class Skip extends Component {
   render(): React$Element<any> | void {
     if (this.props.playerSize !== PLAYER_SIZE.TINY && !this.props.loading) {
       return (
-        <div
-          onClick={this.props.onClick}
-          className={[
-            skipStyle.btnSkip,
-            this.props.parentComponent === 'InteractiveArea' ? skipStyle.interactiveAreaPosition : skipStyle.bottomBarPosition
-          ].join(' ')}
-          tabIndex="0"
-          aria-label={this.props.label}>
-          <Text id={this.props.label} />
-        </div>
+        <Localizer>
+          <div
+            onClick={this.props.onClick}
+            className={[
+            skipStyle.btnSkip, this.props.parentComponent === 'InteractiveArea' ? skipStyle.interactiveAreaPosition : skipStyle.bottomBarPosition].join(' ')}
+            tabIndex="0"
+            aria-label={<Text id={this.props.label} />}>
+            <Text id={this.props.label} />
+          </div>
+        </Localizer>
       );
     }
   }
