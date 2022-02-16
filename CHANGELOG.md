@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.4](https://github.com///compare/v1.1.3...v1.1.4) (2022-02-16)
+
+
+### Bug Fixes
+
+* **FEC-11896:** Skip button aria label is incorrect ([#7](https://github.com//undefined/issues/7)) ([f95afe8](https://github.com///commit/f95afe8))
+* **FEC-11920:** Skip Button Behavior ([#8](https://github.com//undefined/issues/8)) ([01405a0](https://github.com///commit/01405a0))
+
+
+
 ### 1.1.3 (2022-01-19)
 
 
