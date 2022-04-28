@@ -1,0 +1,8 @@
+{
+  "it": {
+    "skip": {
+      "skipIntro": "Salta intro",
+      "watchNext": "Guarda successivo"
+    }
+  }
+}
