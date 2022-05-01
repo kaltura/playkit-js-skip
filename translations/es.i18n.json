@@ -1,8 +1,8 @@
 {
   "es": {
     "skip": {
-      "skipIntro": "تخطي المقدمة",
-      "watchNext": "مشاهدة التالي"
+      "skipIntro": "Omitir introducción",
+      "watchNext": "Ver siguiente"
     }
   }
 }

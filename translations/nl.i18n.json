@@ -1,8 +1,8 @@
 {
   "nl": {
     "skip": {
-      "skipIntro": "Skip Intro",
-      "watchNext": "Watch Next"
+      "skipIntro": "Intro overslaan",
+      "watchNext": "Volgende bekijken"
     }
   }
 }
