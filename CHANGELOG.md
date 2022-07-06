@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com///compare/v1.1.4...v1.2.0) (2022-07-06)
+
+
+### Build System
+
+* set prerelease false ([333181f](https://github.com///commit/333181f))
+
+
+### Features
+
+* **FEC-12213:** add i18n to intro/outro ([#9](https://github.com//undefined/issues/9)) ([93c034b](https://github.com///commit/93c034b))
+
+
+
 ### [1.1.4](https://github.com///compare/v1.1.3...v1.1.4) (2022-02-16)
 
 
