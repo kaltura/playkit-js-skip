@@ -1,5 +1,5 @@
 // @flow
-import {registerPlugin} from 'kaltura-player-js';
+import {registerPlugin} from '@playkit-js/kaltura-player-js';
 import {Skip as Plugin, pluginName} from './skip';
 declare var __VERSION__: string;
 declare var __NAME__: string;

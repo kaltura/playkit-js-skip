@@ -1,5 +1,5 @@
 // @flow
-import {KalturaPlayer, BasePlugin} from 'kaltura-player-js';
+import {KalturaPlayer, BasePlugin} from '@playkit-js/kaltura-player-js';
 import {Skip as SkipComponent} from './components/skip/skip';
 
 const pluginName: string = 'skip';

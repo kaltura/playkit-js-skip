@@ -1,5 +1,5 @@
 import '../../src/index';
-import {setup} from 'kaltura-player-js';
+import {setup} from '@playkit-js/kaltura-player-js';
 import * as TestUtils from './utils/test-utils';
 import {Mode} from '../../src/skip';
 import {EventManager} from '@playkit-js/playkit-js';
