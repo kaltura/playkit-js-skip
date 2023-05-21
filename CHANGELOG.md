@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.2 (2023-05-17)
+
+
+### Bug Fixes
+
+* **FEC-13123:** replace travis with github actions ([#15](https://github.com//undefined/issues/15)) ([d0e0df5](https://github.com///commit/d0e0df5))
+
+
+
 ### 1.2.1 (2023-05-07)
 
 
