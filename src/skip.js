@@ -61,7 +61,7 @@ class Skip extends BasePlugin {
   }
 
   _setIntroData(): void {
-    const {intro} = this.player.sources.metadata;
+    const intro = this.player.sources.metadata.intro || this.config.intro;
     if (typeof intro?.endTime === 'number') {
       if (typeof intro?.startTime !== 'number') {
         intro.startTime = 0;
@@ -73,7 +73,7 @@ class Skip extends BasePlugin {
   }
 
   _setOutroData(): void {
-    const {outro} = this.player.sources.metadata;
+    const outro = this.player.sources.metadata.outro || this.config.outro;
     if (typeof outro?.startTime === 'number') {
       if (typeof outro?.endTime !== 'number' || outro?.endTime === -1) {
         outro.endTime = this.player.duration - 1;
