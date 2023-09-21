@@ -1,2 +1,5 @@
 // @flow
-declare type SkipPoint = IntroOutroTime;
+declare type SkipPoint = {
+  startTime: number;
+  endTime: number;
+};

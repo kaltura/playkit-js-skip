@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <script src="https://cdnapisec.kaltura.com/p/2215841/embedPlaykitJs/uiconf_id/42237501/"></script>
+  <script src="https://unpkg.com/@playkit-js/kaltura-player-js@latest/dist/kaltura-ovp-player.js"></script>
   <script src="./playkit-skip.js"></script>
 </head>
 
@@ -20,35 +20,46 @@
     },
     plugins: {
       skip: {
-        timeout: 4
+        timeout: 4,
+        intro: {
+          startTime: 0,
+          endTime: 5,
+        },
+        outro: {
+          startTime: 7,
+          endTime: 20,
+        }
+      }
+    },
+    // translations - for local environment
+    ui: {
+      translations: {
+        en: {
+          "skip": {
+            "skipIntro": "Skip Intro",
+            "watchNext": "Watch Next"
+          }
+        }
       }
     }
-    // translations - for local environment
-    // ui: {
-    //   translations: {
-    //     en: {
-    //       "skip": {
-    //         "skipIntro": "Skip Intro",
-    //         "watchNext": "Watch Next"
-    //       }
-    //     }
-    //   }
-    // }
   }
 
   const player = KalturaPlayer.setup(config);
-  player.loadMedia({entryId: "1_ebs5e9cy"}, {
-    metadata: {
-      intro: {
-        startTime: 1,
-        endTime: 5,
-      },
-      outro: {
-        startTime: 7,
-        endTime: 20,
-      }
-    }
-  });
+  player.loadMedia({entryId: "1_ebs5e9cy"});
+
+  // Configuration at the entry leve (with optional mediaOption parameter) -  example
+  // player.loadMedia({entryId: "1_ebs5e9cy"}, {
+    // metadata: {
+    //   intro: {
+    //     startTime: 0,
+    //     endTime: 5,
+    //   },
+    //   outro: {
+    //     startTime: 7,
+    //     endTime: 20,
+    //   }
+    // }
+  // });
 
   // Playlist example
   // player.loadPlaylist({playlistId: '0_id05u6ul'},{
