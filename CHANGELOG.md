@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.3.0 (2023-10-08)
+
+
+### Features
+
+* **FEC-13390:** add canary workflow that uses script from common ([#18](https://github.com//undefined/issues/18)) ([d101896](https://github.com///commit/d101896))
+
+
+
 ### 1.2.2 (2023-05-17)
 
 
