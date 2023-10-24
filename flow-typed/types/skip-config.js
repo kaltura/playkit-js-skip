@@ -1,6 +1,6 @@
 // @flow
 declare type SkipConfig = {
-  timeout?: number;
-  intro?: SkipPoint;
-  outro?: SkipPoint;
+  timeout?: number,
+  intro?: { relativeTime: number },
+  outro?: { relativeTime: number }
 };

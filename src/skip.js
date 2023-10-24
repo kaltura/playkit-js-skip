@@ -61,24 +61,36 @@ class Skip extends BasePlugin {
   }
 
   _setIntroData(): void {
-    const intro = this.player.sources.metadata.intro || this.config.intro;
+    const {intro} = this.player.sources.metadata;
+    const relativeTime = this.config?.intro?.relativeTime;
     if (typeof intro?.endTime === 'number') {
       if (typeof intro?.startTime !== 'number') {
         intro.startTime = 0;
       }
       this._intro = {...intro};
+    } else if (typeof relativeTime === 'number') {
+      this._intro = {
+        startTime: 0,
+        endTime: relativeTime
+      };
     } else {
       this.logger.warn('the intro endTime must be set and type of number', intro);
     }
   }
 
   _setOutroData(): void {
-    const outro = this.player.sources.metadata.outro || this.config.outro;
+    const {outro} = this.player.sources.metadata;
+    const relativeTime = this.config?.outro?.relativeTime;
     if (typeof outro?.startTime === 'number') {
       if (typeof outro?.endTime !== 'number' || outro?.endTime === -1) {
         outro.endTime = this.player.duration - 1;
       }
       this._outro = {...outro};
+    } else if (typeof relativeTime === 'number') {
+      this._outro = {
+        startTime: this.player.duration - relativeTime,
+        endTime: this.player.duration
+      };
     } else {
       this.logger.warn('the outro startTime must be set and type of number', outro);
     }
