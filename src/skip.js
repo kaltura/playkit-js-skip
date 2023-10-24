@@ -89,7 +89,7 @@ class Skip extends BasePlugin {
     } else if (typeof relativeTime === 'number') {
       this._outro = {
         startTime: this.player.duration - relativeTime,
-        endTime: this.player.duration
+        endTime: this.player.duration - 1
       };
     } else {
       this.logger.warn('the outro startTime must be set and type of number', outro);
