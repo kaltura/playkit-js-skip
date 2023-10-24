@@ -1,16 +1,16 @@
 .btn-skip {
   position: absolute;
   right: 0;
-  border-radius: 4px;
+  border-radius: 2px;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
-  padding: 7px;
+  padding: 7px 10px;
 
   &.interactive-area-position {
     bottom: 0;
