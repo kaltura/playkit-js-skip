@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.4.0 (2023-11-12)
+
+
+### Features
+
+* **FEC-13431:** [Skip Intro/Outro] Add support for relative values ([#19](https://github.com//undefined/issues/19)) ([7d8fc9c](https://github.com///commit/7d8fc9c))
+
+
+
 ## 1.3.0 (2023-10-08)
 
 
