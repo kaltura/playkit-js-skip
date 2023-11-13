@@ -68,13 +68,13 @@ class Skip extends BasePlugin {
         intro.startTime = 0;
       }
       this._intro = {...intro};
-    } else if (typeof relativeTime === 'number') {
+    } else if (typeof relativeTime === 'number' && relativeTime < this.player.duration) {
       this._intro = {
         startTime: 0,
         endTime: relativeTime
       };
     } else {
-      this.logger.warn('the intro endTime must be set and type of number', intro);
+      this.logger.warn('the intro relativeTime must be set with type of number and less than the video duration', intro);
     }
   }
 
@@ -86,13 +86,13 @@ class Skip extends BasePlugin {
         outro.endTime = this.player.duration - 1;
       }
       this._outro = {...outro};
-    } else if (typeof relativeTime === 'number') {
+    } else if (typeof relativeTime === 'number' && relativeTime < this.player.duration) {
       this._outro = {
         startTime: this.player.duration - relativeTime,
         endTime: this.player.duration - 1
       };
     } else {
-      this.logger.warn('the outro startTime must be set and type of number', outro);
+      this.logger.warn('the outro relativeTime must be set with type of number and less than the video duration', outro);
     }
   }
 
