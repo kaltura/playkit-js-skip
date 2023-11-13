@@ -74,7 +74,7 @@ class Skip extends BasePlugin {
         endTime: relativeTime
       };
     } else {
-      this.logger.warn('the intro relativeTime must be set with type of number and less than the video duration', intro);
+      this.logger.warn('the intro endTime must be set with type of number and be less than the video duration', intro);
     }
   }
 
@@ -92,7 +92,7 @@ class Skip extends BasePlugin {
         endTime: this.player.duration - 1
       };
     } else {
-      this.logger.warn('the outro relativeTime must be set with type of number and less than the video duration', outro);
+      this.logger.warn('the outro startTime must be set with type of number and be less than the video duration', outro);
     }
   }
 
