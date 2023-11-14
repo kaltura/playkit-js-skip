@@ -99,18 +99,18 @@ class Skip extends BasePlugin {
   _updateMode(mode: string, skipPoint: SkipPoint): void {
     if (this._currentMode === Mode.OFF || this._currentMode === mode) {
       if (this._isInSkipPointRange(skipPoint)) {
-        this._displayButton(mode);
+        this._displayButton(mode, skipPoint);
       } else {
         this._removeButton();
       }
     }
   }
 
-  _displayButton(mode) {
+  _displayButton(mode, skipPoint) {
     if (this._currentMode === Mode.OFF) {
       this._addButton(mode, 'InteractiveArea');
       setTimeout(() => {
-        this._relocateButton(mode);
+        this._relocateButton(mode, skipPoint);
       }, this.config.timeout * 1000);
     }
   }
@@ -134,9 +134,11 @@ class Skip extends BasePlugin {
     });
   }
 
-  _relocateButton(mode) {
+  _relocateButton(mode, skipPoint) {
     this._removeButton();
-    this._addButton(mode, 'BottomBar');
+    if (this._isInSkipPointRange(skipPoint)) {
+      this._addButton(mode, 'BottomBar');
+    }
   }
 
   _removeButton(): void {
