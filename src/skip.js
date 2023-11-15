@@ -68,7 +68,7 @@ class Skip extends BasePlugin {
         intro.startTime = 0;
       }
       this._intro = {...intro};
-    } else if (typeof relativeTime === 'number' && relativeTime < this.player.duration) {
+    } else if (this._isValidRelativeTime(relativeTime)) {
       this._intro = {
         startTime: 0,
         endTime: relativeTime
@@ -86,7 +86,7 @@ class Skip extends BasePlugin {
         outro.endTime = this.player.duration - 1;
       }
       this._outro = {...outro};
-    } else if (typeof relativeTime === 'number' && relativeTime < this.player.duration) {
+    } else if (this._isValidRelativeTime(relativeTime)) {
       this._outro = {
         startTime: this.player.duration - relativeTime,
         endTime: this.player.duration - 1
@@ -94,6 +94,10 @@ class Skip extends BasePlugin {
     } else {
       this.logger.warn('the outro startTime must be set with type of number and be less than the video duration', outro);
     }
+  }
+
+  _isValidRelativeTime(relativeTime): boolean {
+    return typeof relativeTime === 'number' && relativeTime < this.player.duration;
   }
 
   _updateMode(mode: string, skipPoint: SkipPoint): void {
