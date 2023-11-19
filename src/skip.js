@@ -68,13 +68,13 @@ class Skip extends BasePlugin {
         intro.startTime = 0;
       }
       this._intro = {...intro};
-    } else if (typeof relativeTime === 'number') {
+    } else if (this._isValidRelativeTime(relativeTime)) {
       this._intro = {
         startTime: 0,
         endTime: relativeTime
       };
     } else {
-      this.logger.warn('the intro endTime must be set and type of number', intro);
+      this.logger.warn('the intro endTime must be set with type of number and be less than the video duration', intro);
     }
   }
 
@@ -86,31 +86,35 @@ class Skip extends BasePlugin {
         outro.endTime = this.player.duration - 1;
       }
       this._outro = {...outro};
-    } else if (typeof relativeTime === 'number') {
+    } else if (this._isValidRelativeTime(relativeTime)) {
       this._outro = {
         startTime: this.player.duration - relativeTime,
         endTime: this.player.duration - 1
       };
     } else {
-      this.logger.warn('the outro startTime must be set and type of number', outro);
+      this.logger.warn('the outro startTime must be set with type of number and be less than the video duration', outro);
     }
+  }
+
+  _isValidRelativeTime(relativeTime): boolean {
+    return typeof relativeTime === 'number' && relativeTime < this.player.duration;
   }
 
   _updateMode(mode: string, skipPoint: SkipPoint): void {
     if (this._currentMode === Mode.OFF || this._currentMode === mode) {
       if (this._isInSkipPointRange(skipPoint)) {
-        this._displayButton(mode);
+        this._displayButton(mode, skipPoint);
       } else {
         this._removeButton();
       }
     }
   }
 
-  _displayButton(mode) {
+  _displayButton(mode, skipPoint) {
     if (this._currentMode === Mode.OFF) {
       this._addButton(mode, 'InteractiveArea');
       setTimeout(() => {
-        this._relocateButton(mode);
+        this._relocateButton(mode, skipPoint);
       }, this.config.timeout * 1000);
     }
   }
@@ -134,9 +138,11 @@ class Skip extends BasePlugin {
     });
   }
 
-  _relocateButton(mode) {
+  _relocateButton(mode, skipPoint) {
     this._removeButton();
-    this._addButton(mode, 'BottomBar');
+    if (this._isInSkipPointRange(skipPoint)) {
+      this._addButton(mode, 'BottomBar');
+    }
   }
 
   _removeButton(): void {
