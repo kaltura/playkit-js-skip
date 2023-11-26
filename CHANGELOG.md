@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.2 (2023-11-26)
+
+
+### Bug Fixes
+
+* **FEC-13444:** fix intro/outro when relevantTime is greater than video duration ([#20](https://github.com//undefined/issues/20)) ([4a95b2b](https://github.com///commit/4a95b2b))
+
+
+
 ### 1.4.1 (2023-11-12)
 
 
