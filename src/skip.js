@@ -114,7 +114,7 @@ class Skip extends BasePlugin {
   _displayButton(mode, skipPoint) {
     if (this._currentMode === Mode.OFF) {
       this._addButton(mode, 'InteractiveArea');
-      this.dispatchEvent(SkipEvents.SKIP_BUTTON_DISPLAYED, {mode})
+      this.dispatchEvent(SkipEvents.SKIP_BUTTON_DISPLAYED, {mode});
       setTimeout(() => {
         this._relocateButton(mode, skipPoint);
       }, this.config.timeout * 1000);
