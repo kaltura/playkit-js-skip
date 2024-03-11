@@ -1,6 +1,7 @@
 // @flow
 import {KalturaPlayer, BasePlugin} from '@playkit-js/kaltura-player-js';
 import {Skip as SkipComponent} from './components/skip/skip';
+import {SkipEvents} from './events';
 
 const pluginName: string = 'skip';
 
@@ -113,6 +114,7 @@ class Skip extends BasePlugin {
   _displayButton(mode, skipPoint) {
     if (this._currentMode === Mode.OFF) {
       this._addButton(mode, 'InteractiveArea');
+      this.dispatchEvent(SkipEvents.SKIP_BUTTON_DISPLAYED, {mode});
       setTimeout(() => {
         this._relocateButton(mode, skipPoint);
       }, this.config.timeout * 1000);
@@ -156,6 +158,7 @@ class Skip extends BasePlugin {
     const seekTo = this._currentMode === Mode.INTRO ? this._intro.endTime : this._outro.endTime;
     this.player.currentTime = seekTo;
     this._removeButton();
+    this.dispatchEvent(SkipEvents.SKIP_BUTTON_CLICK, {mode: this._currentMode});
   }
 
   reset(): void {

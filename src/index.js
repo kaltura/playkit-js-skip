@@ -9,5 +9,6 @@ const NAME = __NAME__;
 
 export {VERSION, NAME};
 export {Plugin};
+export {SkipEvents} from './events';
 
 registerPlugin(pluginName, Plugin);
