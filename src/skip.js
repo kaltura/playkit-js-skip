@@ -156,10 +156,9 @@ class Skip extends BasePlugin {
 
   seek(): void {
     const seekTo = this._currentMode === Mode.INTRO ? this._intro.endTime : this._outro.endTime;
-    const eventName = this._currentMode === Mode.INTRO ? SkipEvents.SKIP_INTRO : SkipEvents.SKIP_OUTRO;
     this.player.currentTime = seekTo;
     this._removeButton();
-    this.dispatchEvent(eventName);
+    this.dispatchEvent(SkipEvents.SKIP_BUTTON_CLICK, {mode: this._currentMode});
   }
 
   reset(): void {
