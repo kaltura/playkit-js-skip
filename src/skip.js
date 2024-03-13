@@ -159,7 +159,6 @@ class Skip extends BasePlugin {
     this.player.currentTime = seekTo;
     this.dispatchEvent(SkipEvents.SKIP_BUTTON_CLICK, {mode: this._currentMode});
     this._removeButton();
-    this.dispatchEvent(SkipEvents.SKIP_BUTTON_CLICK, {mode: this._currentMode});
   }
 
   reset(): void {
