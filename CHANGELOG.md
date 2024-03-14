@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.3 (2024-03-14)
+
+
+### Bug Fixes
+
+* **FEC-13723:** Regression fix ([#23](https://github.com//undefined/issues/23)) ([622eb8b](https://github.com///commit/622eb8b))
+
+
+
 ### 1.4.2 (2023-11-26)
 
 
