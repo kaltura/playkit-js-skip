@@ -1,7 +1,8 @@
 // @flow
-import {KalturaPlayer, BasePlugin} from '@playkit-js/kaltura-player-js';
+import {KalturaPlayer, BasePlugin, ui} from '@playkit-js/kaltura-player-js';
 import {Skip as SkipComponent} from './components/skip/skip';
 import {SkipEvents} from './events';
+
 
 const pluginName: string = 'skip';
 
@@ -127,7 +128,7 @@ class Skip extends BasePlugin {
     this._removeComponent = this.player.ui.addComponent({
       label: 'SkipComponent',
       presets: ['Playback'],
-      area: 'InteractiveArea',
+      area: ui.ReservedPresetAreas.InteractiveArea,
       get: SkipComponent,
       props: {
         label: this._translations.get(mode),
