@@ -3,7 +3,6 @@ import {KalturaPlayer, BasePlugin, ui} from '@playkit-js/kaltura-player-js';
 import {Skip as SkipComponent} from './components/skip/skip';
 import {SkipEvents} from './events';
 
-
 const pluginName: string = 'skip';
 
 export const Mode = {
@@ -112,7 +111,7 @@ class Skip extends BasePlugin {
     }
   }
 
-  _displayButton(mode, skipPoint) {
+  _displayButton(mode) {
     if (this._currentMode === Mode.OFF) {
       this._addButton(mode);
       this.dispatchEvent(SkipEvents.SKIP_BUTTON_DISPLAYED, {mode});
@@ -120,7 +119,10 @@ class Skip extends BasePlugin {
   }
 
   _isInSkipPointRange(skipPoint: SkipPoint): boolean {
-    return this.player.currentTime >= skipPoint.startTime && this.player.currentTime < Math.min(skipPoint.endTime, skipPoint.startTime + this.config.timeout);
+    return (
+      this.player.currentTime >= skipPoint.startTime &&
+      this.player.currentTime < Math.min(skipPoint.endTime, skipPoint.startTime + this.config.timeout)
+    );
   }
 
   _addButton(mode: string): void {
