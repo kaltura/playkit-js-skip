@@ -42,6 +42,11 @@ yarn run build
 
 Finally, add the bundle as a script tag in your page, and initialize the player
 
+> **Note:** The config can be supplied in two ways:
+>
+* **Globally** - In the **Plugin level** (and will apply globally for all entries)  or
+* **Specifiably** In the **Media / Entry level**:
+
 ```html
 <script type="text/javascript" src="/PATH/TO/FILE/kaltura-ovp-player.js"></script>
 <script type="text/javascript" src="/PATH/TO/FILE/playkit-skip.js"></script>
@@ -70,19 +75,41 @@ Finally, add the bundle as a script tag in your page, and initialize the player
     //   }
     // }
   };
-  const kalturaPlayer = KalturaPlayer.setup(config);
-  kalturaPlayer.loadMedia({entryId: '0_wifqaipd'}, {
-    metadata: {
-      intro: {
-        startTime: 1,
-        endTime: 32,
-      },
-      outro: {
-        startTime: 4,
-        endTime: 5,
+
+
+  // config - in the media level - (needed just in case it is not returned from the KMC)
+
+  // const kalturaPlayer = KalturaPlayer.setup(config);
+  // kalturaPlayer.loadMedia({entryId: '0_wifqaipd'}, {
+  //   metadata: {
+  //     intro: {
+  //       startTime: 1,
+  //       endTime: 32,
+  //     },
+  //     outro: {
+  //       startTime: 4,
+  //       endTime: 5,
+  //     }
+  //   }
+  // });
+
+  // config - in the Plugin level - (global for all entries)
+  const kalturaPlayer = KalturaPlayer.setup({
+    ...config,
+    plugins: {
+      skip: {
+        timeout: 4,
+        intro: {
+          relativeTime: 10
+        },
+        outro: {
+          relativeTime: 5
+        }
       }
     }
   });
+
+  kalturaPlayer.loadMedia({entryId: '0_wifqaipd'});
 </script>
 ```
 
