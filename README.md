@@ -77,7 +77,7 @@ Finally, add the bundle as a script tag in your page, and initialize the player
   };
 
 
-  // config - in the media level - (needed just in case it is not returned from the KMC)
+  // 1. Config - in the media level - (needed just in case it is not returned from the KMC)
 
   // const kalturaPlayer = KalturaPlayer.setup(config);
   // kalturaPlayer.loadMedia({entryId: '0_wifqaipd'}, {
@@ -93,7 +93,7 @@ Finally, add the bundle as a script tag in your page, and initialize the player
   //   }
   // });
 
-  // config - in the Plugin level - (global for all entries)
+  // 2. Config - in the Plugin level - (global for all entries)
   const kalturaPlayer = KalturaPlayer.setup({
     ...config,
     plugins: {
