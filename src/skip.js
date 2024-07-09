@@ -135,7 +135,7 @@ class Skip extends BasePlugin {
       props: {
         label: this._translations.get(mode),
         onClick: this.seek.bind(this),
-        parentComponent: 'InteractiveArea'
+        parentComponent: ui.ReservedPresetAreas.InteractiveArea
       }
     });
   }
