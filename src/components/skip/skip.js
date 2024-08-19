@@ -43,6 +43,7 @@ class Skip extends Component {
    */
   onKeyDown = (e: KeyboardEvent): void => {
     if (e.keyCode === KeyMap.ENTER || e.keyCode === KeyMap.SPACE) {
+      e.preventDefault();
       this.props.onClick();
     }
   };
