@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.5 (2024-08-22)
+
+
+### Bug Fixes
+
+* **FEC-14113:** prevent scroll on space ([#28](https://github.com//undefined/issues/28)) ([4a1ceb1](https://github.com///commit/4a1ceb1))
+
+
+
 ### 1.4.4 (2024-07-11)
 
 
