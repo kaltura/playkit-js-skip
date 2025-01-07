@@ -1,0 +1,8 @@
+{
+  "ca": {
+    "skip": {
+      "skipIntro": "Ometre la Introducció",
+      "watchNext": "Veure a Continuació"
+    }
+  }
+}
