@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.5.0 (2025-01-23)
+
+
+### Features
+
+* **FEC-14239:** Rename Catalan locale from ca to ca_es ([#30](https://github.com//undefined/issues/30)) ([0539782](https://github.com///commit/0539782))
+
+
+
 ### 1.4.5 (2024-08-22)
 
 
