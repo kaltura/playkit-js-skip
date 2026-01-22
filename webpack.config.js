@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const path = require('path');
 const packageData = require('./package.json');
 const CSS_MODULE_PREFIX = 'playkit';
+const {insertStylesWithNonce} = require('@playkit-js/webpack-common');
 
 let plugins = [
   new webpack.DefinePlugin({
@@ -57,7 +58,12 @@ module.exports = {
         use: [
           {
             loader: 'style-loader',
-            options: {attributes: {id: `${packageData.name}`}}
+            options: {
+              attributes: {
+                id: `${packageData.name}`
+              },
+              insert: insertStylesWithNonce
+            }
           },
           {
             loader: 'css-loader',
