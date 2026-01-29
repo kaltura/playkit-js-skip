@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.6.0 (2026-01-29)
+
+
+### Features
+
+* **FEC-14869:** Adding nonce support in player plugins style tags ([#32](https://github.com//undefined/issues/32)) ([bb1bbbb](https://github.com///commit/bb1bbbb))
+
+
+
 ## 1.5.0 (2025-01-23)
 
 
