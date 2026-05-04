@@ -1,0 +1,90 @@
+{
+  "repositoryName": "playkit-js-skip",
+  "packageName": "@playkit-js/skip",
+  "version": "1.6.0",
+
+  "coreResponsibility": "A UI plugin for the Kaltura Player JS that provides 'Skip Intro' and 'Watch Next' (outro) functionality, allowing users to skip designated intro/outro segments during video playback.",
+
+  "domainAndLogicOwnership": {
+    "featureOwnership": [
+      "Skip Intro button display and interaction",
+      "Watch Next (outro) button display and interaction",
+      "Time-based skip point detection during playback",
+      "Configurable timeout for skip button visibility",
+      "Support for absolute (startTime/endTime) and relative time configurations",
+      "Internationalization (i18n) support for skip button labels",
+      "Keyboard accessibility (Enter/Space key support)",
+      "Responsive behavior (hidden on tiny player sizes)"
+    ],
+    "dataHandling": [
+      "SkipPoint objects containing startTime and endTime for intro/outro segments",
+      "SkipConfig for plugin configuration (timeout, intro/outro relativeTime)",
+      "Player metadata parsing for intro/outro timing data",
+      "Current mode state management (INTRO, OUTRO, OFF)",
+      "Player currentTime monitoring via TIME_UPDATE events"
+    ]
+  },
+
+  "integrationPoints": {
+    "upstream": [
+      "@playkit-js/kaltura-player-js - Core player framework and BasePlugin class",
+      "Kaltura Media Content (KMC) - Provides intro/outro metadata via player.sources.metadata",
+      "Player UI framework (Preact-based) - For component rendering and Redux state"
+    ],
+    "downstream": [
+      "Kaltura Player UI layer - Consumes skip button component in InteractiveArea or BottomBar",
+      "Analytics/tracking systems - Can subscribe to SKIP_BUTTON_CLICK and SKIP_BUTTON_DISPLAYED events"
+    ],
+    "externalApis": []
+  },
+
+  "technicalStack": {
+    "primaryLanguages": ["JavaScript (ES6+)", "Flow (static typing)", "SCSS"],
+    "frameworks": ["Preact (UI components)", "Redux (state management)", "Webpack (bundling)"],
+    "buildTools": ["Babel", "Webpack", "Karma (testing)", "ESLint", "Prettier"],
+    "entryPoints": [
+      "src/index.js - Plugin registration entry point",
+      "src/skip.js - Main Skip plugin class (extends BasePlugin)",
+      "src/components/skip/skip.js - Skip button UI component (Preact)",
+      "flow-typed/types/skip-config.js - SkipConfig type definition",
+      "flow-typed/types/skip-point.js - SkipPoint type definition"
+    ]
+  },
+
+  "events": {
+    "dispatched": [
+      "skip_button_click - Fired when user clicks the skip button",
+      "skip_button_displayed - Fired when skip button becomes visible"
+    ],
+    "consumed": [
+      "FIRST_PLAYING - Initializes intro data and listeners",
+      "TIME_UPDATE - Monitors playback position for skip point ranges",
+      "DURATION_CHANGE - Sets outro data based on video duration"
+    ]
+  },
+
+  "configurationOptions": {
+    "timeout": "Duration in seconds the skip button remains visible (default: 5)",
+    "intro.relativeTime": "Relative time from start for intro end (alternative to metadata)",
+    "outro.relativeTime": "Relative time from end for outro start (alternative to metadata)"
+  },
+
+  "triageKeywords": [
+    "skip intro",
+    "skip button",
+    "watch next",
+    "outro",
+    "intro segment",
+    "skip_button_click",
+    "skip_button_displayed",
+    "skipIntro",
+    "watchNext",
+    "SkipPoint",
+    "relativeTime",
+    "intro.startTime",
+    "intro.endTime",
+    "outro.startTime",
+    "outro.endTime",
+    "playkit-skip"
+  ]
+}
